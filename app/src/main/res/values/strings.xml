@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">CocktailWizardApp</string>
+    <string name="logo_cocktail_wizard">Logo Cocktail Wizard</string>
+    <string name="cocktail_wizard">COCKTAIL WIZARD</string>
+    <string name="s_inscrire">S\'inscrire</string>
+    <string name="icone_calendrier">Icone calendrier</string>
+    <string name="devenir_membre">Devenir Membre</string>
+    <string name="nom_d_utilisateur">Nom d\'utilisateur</string>
+    <string name="mot_de_passe">Mot de passe</string>
+    <string name="courriel">Courriel</string>
+    <string name="confirmation_du_mot_de_passe">Confirmation du mot de passe</string>
+    <string name="date_de_naissance">Date de naissance</string>
 </resources>

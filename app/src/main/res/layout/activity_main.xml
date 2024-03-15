@@ -8,10 +8,10 @@
     tools:context=".MainActivity">
 
     <TextView
-        android:id="@+id/textView8"
+        android:id="@+id/loadScreenTitle_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="COCKTAIL WIZARD"
+        android:text="@string/cocktail_wizard"
         android:textAlignment="center"
         android:textSize="34sp"
         android:textStyle="bold"
@@ -22,9 +22,10 @@
         app:layout_constraintVertical_bias="0.163" />
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/loadScreenImg_id"
         android:layout_width="330dp"
         android:layout_height="330dp"
+        android:contentDescription="@string/logo_cocktail_wizard"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.493"
