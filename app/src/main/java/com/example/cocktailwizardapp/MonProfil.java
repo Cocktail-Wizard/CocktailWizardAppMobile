@@ -1,0 +1,39 @@
+package com.example.cocktailwizardapp;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
+
+public class MonProfil extends AppCompatActivity implements View.OnClickListener {
+
+    Button btnModMdp, btnDeco, btnSuppCompt;
+    ImageView imgProfil;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_mon_profil);
+
+        btnModMdp = findViewById(R.id.btnModifierMdp_id);
+        btnModMdp.setOnClickListener(this);
+
+        btnDeco = findViewById(R.id.btnDeco_id);
+        btnDeco.setOnClickListener(this);
+
+        btnSuppCompt = findViewById(R.id.btnSuppCompt_id);
+        btnSuppCompt.setOnClickListener(this);
+
+        imgProfil = findViewById(R.id.imgProfil_id);
+        imgProfil.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View v) {
+
+        //TODO
+        // implementer les fonctions de boutons
+    }
+}
