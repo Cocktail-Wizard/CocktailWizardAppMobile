@@ -18,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void run() {
                 // Creer un intention pour aller a Connexion
-                Intent intent = new Intent(MainActivity.this, Connexion.class);
+                Intent intent = new Intent(MainActivity.this, Galerie.class);
                 startActivity(intent);
                 finish();
             }
