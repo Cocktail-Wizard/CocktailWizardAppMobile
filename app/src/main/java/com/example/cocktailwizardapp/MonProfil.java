@@ -10,7 +10,7 @@ import android.widget.ImageView;
 public class MonProfil extends AppCompatActivity implements View.OnClickListener {
 
     Button btnModMdp, btnDeco, btnSuppCompt;
-    ImageView imgProfil;
+    ImageView imgProfil,retour;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +28,9 @@ public class MonProfil extends AppCompatActivity implements View.OnClickListener
 
         imgProfil = findViewById(R.id.imgProfil_id);
         imgProfil.setOnClickListener(this);
+
+        retour = findViewById(R.id.retourMP_id);
+        retour.setOnClickListener(this);
     }
 
     @Override
@@ -35,5 +38,9 @@ public class MonProfil extends AppCompatActivity implements View.OnClickListener
 
         //TODO
         // implementer les fonctions de boutons
+
+        if(v == retour){
+            finish();
+        }
     }
 }

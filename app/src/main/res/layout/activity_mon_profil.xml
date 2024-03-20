@@ -91,4 +91,13 @@
         app:layout_constraintStart_toStartOf="@+id/leftGuideline"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/rectangle_arrondi_blanc" />
+
+    <ImageView
+        android:id="@+id/retourMP_id"
+        android:layout_width="64dp"
+        android:layout_height="58dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/baseline_arrow_back_24" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
