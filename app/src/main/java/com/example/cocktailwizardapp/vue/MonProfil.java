@@ -44,6 +44,9 @@ public class MonProfil extends AppCompatActivity implements View.OnClickListener
         // implementer les fonctions de boutons
         if(v == retour){
             finish();
+        } else if (v == btnModMdp) {
+            Intent modMdp = new Intent(this,ModifierMotDePasse.class);
+            startActivity(modMdp);
         }
 
     }

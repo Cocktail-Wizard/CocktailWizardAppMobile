@@ -13,4 +13,11 @@
     <string name="d_connexion">Déconnexion</string>
     <string name="modifier_mon_mot_de_passe">Modifier mon mot de passe</string>
     <string name="supprimer_mon_compte">Supprimer mon compte</string>
+    <string name="mot_de_passe_actuel">Mot de passe actuel</string>
+    <string name="confirmer">Confirmer</string>
+    <string name="confirmer_nouveau_mot_de_passe">Confirmer nouveau mot de passe</string>
+    <string name="nouveau_mot_de_passe">Nouveau mot de passe</string>
+    <string name="confirmer_le_nouveau_mot_de_passe">Confirmer le nouveau mot de passe</string>
+    <string name="entrer_nouveau_mot_de_passe">Entrer nouveau mot de passe</string>
+    <string name="entrer_mot_de_passe">Entrer mot de passe</string>
 </resources>
