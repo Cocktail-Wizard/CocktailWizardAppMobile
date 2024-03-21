@@ -20,9 +20,10 @@
         app:layout_constraintGuide_begin="432dp" />
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/imgCocktailGalerie_id"
         android:layout_width="272dp"
         android:layout_height="400dp"
+        android:background="@android:color/transparent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -33,16 +34,17 @@
         android:id="@+id/nomCocktailGalerie_id"
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:background="@color/cocktail_nom_galerie"
         android:text="TextView"
         android:textAlignment="center"
         android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView"
+        app:layout_constraintBottom_toBottomOf="@+id/imgCocktailGalerie_id"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline11" />
 
     <TextView
-        android:id="@+id/textView9"
+        android:id="@+id/nbAimeCocktailGalerie_id"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="TextView"
