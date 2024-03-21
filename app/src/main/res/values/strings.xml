@@ -10,4 +10,7 @@
     <string name="courriel">Courriel</string>
     <string name="confirmation_du_mot_de_passe">Confirmation du mot de passe</string>
     <string name="date_de_naissance">Date de naissance</string>
+    <string name="d_connexion">Déconnexion</string>
+    <string name="modifier_mon_mot_de_passe">Modifier mon mot de passe</string>
+    <string name="supprimer_mon_compte">Supprimer mon compte</string>
 </resources>

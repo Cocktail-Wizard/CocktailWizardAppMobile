@@ -24,7 +24,6 @@ public class Galerie extends AppCompatActivity implements BottomNavigationView.O
         barNav.setSelectedItemId(R.id.galerie_id);
     }
 
-
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
