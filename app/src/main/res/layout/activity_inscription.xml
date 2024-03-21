@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background_authentification"
-    tools:context=".Inscription">
+    tools:context=".vue.Inscription">
 
     <TextView
         android:id="@+id/textView"

@@ -1,4 +1,4 @@
-package com.example.cocktailwizardapp;
+package com.example.cocktailwizardapp.vue;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import com.example.cocktailwizardapp.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class Galerie extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {

@@ -1,4 +1,4 @@
-package com.example.cocktailwizardapp;
+package com.example.cocktailwizardapp.vue;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -8,7 +8,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-;
+;import com.example.cocktailwizardapp.R;
+
 public class Connexion extends AppCompatActivity implements View.OnClickListener {
 
     TextView lienVersInscription;

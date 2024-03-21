@@ -1,11 +1,16 @@
-package com.example.cocktailwizardapp;
+package com.example.cocktailwizardapp.vue;
 
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+
+import com.example.cocktailwizardapp.R;
+import com.example.cocktailwizardapp.vue.SelecteurPhoto;
 
 public class MonProfil extends AppCompatActivity implements View.OnClickListener {
 
@@ -41,6 +46,10 @@ public class MonProfil extends AppCompatActivity implements View.OnClickListener
 
         if(v == retour){
             finish();
+        }
+        else if (v == imgProfil) {
+            Intent modifierPhoto = new Intent(this, SelecteurPhoto.class);
+
         }
     }
 }

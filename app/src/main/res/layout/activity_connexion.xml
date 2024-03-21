@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background_authentification"
-    tools:context=".Connexion">
+    tools:context=".vue.Connexion">
 
     <TextView
         android:id="@+id/headerConnexion_id"

@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 
+import com.example.cocktailwizardapp.vue.Galerie;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override

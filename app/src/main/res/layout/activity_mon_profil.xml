@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background_principale"
-    tools:context=".MonProfil">
+    tools:context=".vue.MonProfil">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/leftGuideline"

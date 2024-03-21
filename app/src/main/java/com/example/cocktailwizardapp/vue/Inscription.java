@@ -1,4 +1,4 @@
-package com.example.cocktailwizardapp;
+package com.example.cocktailwizardapp.vue;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -10,6 +10,8 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.example.cocktailwizardapp.R;
 
 import java.util.Calendar;
 

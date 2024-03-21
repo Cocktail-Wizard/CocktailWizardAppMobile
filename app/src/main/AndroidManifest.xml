@@ -13,16 +13,16 @@
         android:theme="@style/Theme.CocktailWizardApp"
         tools:targetApi="31">
         <activity
-            android:name=".Galerie"
+            android:name=".vue.Galerie"
             android:exported="false" />
         <activity
-            android:name=".MonProfil"
+            android:name=".vue.MonProfil"
             android:exported="false" />
         <activity
-            android:name=".Inscription"
+            android:name=".vue.Inscription"
             android:exported="false" />
         <activity
-            android:name=".Connexion"
+            android:name=".vue.Connexion"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
