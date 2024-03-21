@@ -16,10 +16,13 @@ public class MonProfil extends AppCompatActivity implements View.OnClickListener
     Button btnModMdp, btnDeco, btnSuppCompt;
     ImageView imgProfil,retour;
 
+    int imageChoisie;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mon_profil);
+
+
 
         btnModMdp = findViewById(R.id.btnModifierMdp_id);
         btnModMdp.setOnClickListener(this);
@@ -47,7 +50,20 @@ public class MonProfil extends AppCompatActivity implements View.OnClickListener
         } else if (v == btnModMdp) {
             Intent modMdp = new Intent(this,ModifierMotDePasse.class);
             startActivity(modMdp);
+        } else if (v == imgProfil) {
+            Intent modPfp = new Intent(this, SelectionnerImageProfil.class);
+            startActivityForResult(modPfp,1);
         }
+    }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == 1 && resultCode == RESULT_OK && data != null) {
+            int imageChoisie = data.getIntExtra("imageChoisie", 0);
+            // Now you can use the selected image data
+            imgProfil.setImageResource(imageChoisie);
+        }
     }
 }
