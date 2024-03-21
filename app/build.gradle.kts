@@ -32,6 +32,11 @@ android {
 }
 
 dependencies {
+    // JSON
+    implementation ("com.google.code.gson:gson:2.10.1")
+    implementation ("com.fasterxml.jackson.core:jackson-databind:2.16.1")
+    // OKHTTP
+    implementation ("com.squareup.okhttp3:okhttp:3.12.0")
 
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.11.0")
