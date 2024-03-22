@@ -62,7 +62,7 @@ public class MonProfil extends AppCompatActivity implements View.OnClickListener
 
         if (requestCode == 1 && resultCode == RESULT_OK && data != null) {
             int imageChoisie = data.getIntExtra("imageChoisie", 0);
-            // Now you can use the selected image data
+
             imgProfil.setImageResource(imageChoisie);
         }
     }
