@@ -21,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
             public void run() {
                 // Creer un intention pour aller a Connexion
                 Intent intent = new Intent(MainActivity.this, Galerie.class);
+                System.out.println("Main activiteee");
                 startActivity(intent);
                 finish();
             }

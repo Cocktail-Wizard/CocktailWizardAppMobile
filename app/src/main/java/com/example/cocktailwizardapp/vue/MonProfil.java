@@ -10,7 +10,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import com.example.cocktailwizardapp.R;
-import com.example.cocktailwizardapp.vue.SelecteurPhoto;
 
 public class MonProfil extends AppCompatActivity implements View.OnClickListener {
 
@@ -48,7 +47,7 @@ public class MonProfil extends AppCompatActivity implements View.OnClickListener
             finish();
         }
         else if (v == imgProfil) {
-            Intent modifierPhoto = new Intent(this, SelecteurPhoto.class);
+
 
         }
     }

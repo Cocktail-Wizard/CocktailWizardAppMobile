@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.view.MenuItem;
 
 import com.example.cocktailwizardapp.R;
+import com.example.cocktailwizardapp.classes.JSONController;
+import com.example.cocktailwizardapp.classes.Publication;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class Galerie extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
@@ -22,6 +24,11 @@ public class Galerie extends AppCompatActivity implements BottomNavigationView.O
 
         barNav.setOnNavigationItemSelectedListener(this);
         barNav.setSelectedItemId(R.id.galerie_id);
+
+        JSONController jc = new JSONController();
+        System.out.println("JSONController cree");
+        Publication pub = jc.creerPublication(jc.data);
+        System.out.println(pub.toString());
     }
 
 
