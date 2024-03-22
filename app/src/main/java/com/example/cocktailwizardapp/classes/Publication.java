@@ -1,30 +1,16 @@
 package com.example.cocktailwizardapp.classes;
 
-import java.sql.Date;
+import android.widget.ImageView;
+import android.widget.TextView;
 
-public class Publication {
+public class Publication{
     private int id_cocktail;
     private String nom;
     private int nb_likes;
     private String date_publication;
     private String saveur;
 
-    //Constructeur par defaut
-    //Aucun constructeur sans parametre car la lecture du JSON du post se fait ailleurs
-
-    public Publication() {
-    }
-
-//    public Publication(int id_cocktail, String nom, int nb_likes, String date_publication, String saveur) {
-//        this.id_cocktail = id_cocktail;
-//        this.nom = nom;
-//        this.nb_likes = nb_likes;
-//        this.date_publication = date_publication;
-//        this.saveur = saveur;
-//    }
-
     //toString
-
     @Override
     public String toString() {
         return "Publication{" +
@@ -76,6 +62,7 @@ public class Publication {
     public void setUmami(String umami) {
         this.saveur = umami;
     }
+
 }
 /*
 [
