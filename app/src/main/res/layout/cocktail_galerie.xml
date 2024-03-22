@@ -2,22 +2,9 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="272dp"
-    android:layout_height="400dp">
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline11"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="346dp" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline12"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_begin="432dp" />
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="16dp">
 
     <ImageView
         android:id="@+id/imgCocktailGalerie_id"
@@ -32,8 +19,8 @@
 
     <TextView
         android:id="@+id/nomCocktailGalerie_id"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:background="@color/cocktail_nom_galerie"
         android:text="TextView"
         android:textAlignment="center"
@@ -45,15 +32,17 @@
 
     <TextView
         android:id="@+id/nbAimeCocktailGalerie_id"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TextView"
         android:textAlignment="viewEnd"
         android:textColor="#FF0000"
         app:layout_constraintBottom_toTopOf="@+id/guideline13"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="@+id/imgCocktailGalerie_id"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/imgCocktailGalerie_id"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline13"
@@ -61,4 +50,18 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_begin="35dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline11"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="346dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="432dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>
