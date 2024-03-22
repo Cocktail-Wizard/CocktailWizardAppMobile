@@ -45,15 +45,21 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/guideline10" />
 
-    <TextView
-        android:id="@+id/listeIngredientsFiche_id"
+    <ScrollView
+        android:id="@+id/ingredientsFicheSV_id"
         android:layout_width="188dp"
         android:layout_height="96dp"
-        android:text="TextView"
         app:layout_constraintBottom_toTopOf="@+id/guideline9"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guideline10"
-        app:layout_constraintTop_toTopOf="@+id/guideline2" />
+        app:layout_constraintTop_toTopOf="@+id/guideline2" >
+
+        <TextView
+            android:id="@+id/listeIngredientsFiche_id"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="TextView" />
+    </ScrollView>
 
     <TextView
         android:id="@+id/nbrAimeFiche_id"
@@ -90,16 +96,22 @@
         app:layout_constraintTop_toTopOf="@+id/guideline9"
         app:layout_constraintVertical_bias="0.785" />
 
-    <TextView
-        android:id="@+id/descFiche_id"
+    <ScrollView
+        android:id="@+id/descFicheSV_id"
         android:layout_width="391dp"
         android:layout_height="118dp"
         android:layout_marginTop="4dp"
-        android:text="TextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.372"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline7" />
+        app:layout_constraintTop_toTopOf="@+id/guideline7" >
+
+        <TextView
+            android:id="@+id/descFiche_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="TextView" />
+    </ScrollView>
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline2"
@@ -164,17 +176,23 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline14" />
 
-    <TextView
-        android:id="@+id/textView9"
+    <ScrollView
+        android:id="@+id/prepFicheSV_id"
         android:layout_width="391dp"
         android:layout_height="118dp"
-        android:text="TextView"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.372"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline14"
-        app:layout_constraintVertical_bias="0.099" />
+        app:layout_constraintVertical_bias="0.099" >
+
+        <TextView
+            android:id="@+id/prepFiche_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="TextView" />
+    </ScrollView>
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline15"
