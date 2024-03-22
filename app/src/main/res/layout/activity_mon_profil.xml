@@ -25,7 +25,7 @@
         android:id="@+id/btnModifierMdp_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Modifier mon mot de passe"
+        android:text="@string/modifier_mon_mot_de_passe"
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/guideline3"
         app:layout_constraintEnd_toStartOf="@+id/rightGuideline"
@@ -36,7 +36,7 @@
         android:id="@+id/btnDeco_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Déconnexion"
+        android:text="@string/d_connexion"
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/guideline4"
         app:layout_constraintEnd_toStartOf="@+id/rightGuideline"
@@ -47,12 +47,15 @@
         android:id="@+id/btnSuppCompt_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Supprimer mon compte"
+        android:backgroundTint="#FF0000"
+        android:text="@string/supprimer_mon_compte"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline6"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/rightGuideline"
+        app:layout_constraintHorizontal_bias="0.492"
         app:layout_constraintStart_toStartOf="@+id/leftGuideline"
-        app:layout_constraintTop_toTopOf="@+id/guideline4" />
+        app:layout_constraintTop_toTopOf="@+id/guideline4"
+        app:layout_constraintVertical_bias="0.0" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline3"
@@ -95,7 +98,9 @@
     <ImageView
         android:id="@+id/retourMP_id"
         android:layout_width="64dp"
-        android:layout_height="58dp"
+        android:layout_height="64dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/baseline_arrow_back_24" />
