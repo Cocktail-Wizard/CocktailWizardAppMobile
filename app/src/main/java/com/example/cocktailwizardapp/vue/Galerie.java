@@ -18,6 +18,7 @@ import com.example.cocktailwizardapp.classes.ConnexionController;
 import com.example.cocktailwizardapp.classes.JSONController;
 import com.example.cocktailwizardapp.classes.Publication;
 import com.example.cocktailwizardapp.classes.PublicationAdapter;
+import com.example.cocktailwizardapp.classes.PublicationFragment;
 import com.example.cocktailwizardapp.classes.ResponseCallback;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -54,6 +55,10 @@ public class Galerie extends AppCompatActivity implements BottomNavigationView.O
                         Toast.makeText(getApplicationContext(),
                                 "Item Clicked: " + item.getNom(),
                                 Toast.LENGTH_LONG).show();
+
+
+                        PublicationFragment publicationFragment = PublicationFragment.newInstance(item);
+                        publicationFragment.show(getSupportFragmentManager(), "PublicationFragment");
 
                     }
         });

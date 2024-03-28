@@ -1,12 +1,16 @@
 package com.example.cocktailwizardapp.classes;
 
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
 
 import java.sql.Blob;
 import java.util.Arrays;
 
-public class Publication{
+public class Publication implements Parcelable {
     private int id_cocktail;
     private String nom;
     private String desc;
@@ -158,4 +162,77 @@ public class Publication{
     public void setIngredients_cocktail(Ingredient[] ingredients) {
         this.ingredients_cocktail = ingredients;
     }
+
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(this.id_cocktail);
+        dest.writeString(this.nom);
+        dest.writeString(this.desc);
+        dest.writeString(this.preparation);
+        dest.writeString(this.img_cocktail);
+        dest.writeString(this.img_auteur);
+        dest.writeString(this.auteur);
+        dest.writeInt(this.nb_like);
+        dest.writeString(this.date);
+        dest.writeString(this.alcool_principale);
+        dest.writeString(this.profil_saveur);
+        dest.writeString(this.type_verre);
+        dest.writeByte(this.liked ? (byte) 1 : (byte) 0);
+        dest.writeTypedArray(this.ingredients_cocktail, flags);
+    }
+
+    public void readFromParcel(Parcel source) {
+        this.id_cocktail = source.readInt();
+        this.nom = source.readString();
+        this.desc = source.readString();
+        this.preparation = source.readString();
+        this.img_cocktail = source.readString();
+        this.img_auteur = source.readString();
+        this.auteur = source.readString();
+        this.nb_like = source.readInt();
+        this.date = source.readString();
+        this.alcool_principale = source.readString();
+        this.profil_saveur = source.readString();
+        this.type_verre = source.readString();
+        this.liked = source.readByte() != 0;
+        this.ingredients_cocktail = source.createTypedArray(Ingredient.CREATOR);
+    }
+
+    public Publication() {
+    }
+
+    protected Publication(Parcel in) {
+        this.id_cocktail = in.readInt();
+        this.nom = in.readString();
+        this.desc = in.readString();
+        this.preparation = in.readString();
+        this.img_cocktail = in.readString();
+        this.img_auteur = in.readString();
+        this.auteur = in.readString();
+        this.nb_like = in.readInt();
+        this.date = in.readString();
+        this.alcool_principale = in.readString();
+        this.profil_saveur = in.readString();
+        this.type_verre = in.readString();
+        this.liked = in.readByte() != 0;
+        this.ingredients_cocktail = in.createTypedArray(Ingredient.CREATOR);
+    }
+
+    public static final Creator<Publication> CREATOR = new Creator<Publication>() {
+        @Override
+        public Publication createFromParcel(Parcel source) {
+            return new Publication(source);
+        }
+
+        @Override
+        public Publication[] newArray(int size) {
+            return new Publication[size];
+        }
+    };
 }
