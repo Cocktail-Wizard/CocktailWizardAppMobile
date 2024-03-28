@@ -36,17 +36,21 @@ public class PublicationAdapter extends RecyclerView.Adapter<PublicationAdapter.
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Publication pub = publications.get(position);
 
-        if((pub.getNom() == null) || (pub.getnb_likes() == 0)){
+        if(pub.getNom() == null){
             return;
         }
 
         holder.titreTextView.setText(pub.getNom());
-        holder.nbLikesTextView.setText(Integer.toString(pub.getnb_likes()));
+        holder.nbLikesTextView.setText(Integer.toString(pub.getNb_like()));
     }
 
     @Override
     public int getItemCount() {
         return publications.size();
+    }
+
+    public void setData(ArrayList<Publication> pubs) {
+        this.publications = pubs;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
