@@ -1,17 +1,17 @@
 package com.example.cocktailwizardapp.vue;
 
+import static java.security.AccessController.getContext;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentContainerView;
-import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.widget.LinearLayout;
 import android.widget.ScrollView;
+import android.widget.Toast;
 
 import com.example.cocktailwizardapp.R;
 import com.example.cocktailwizardapp.classes.ConnexionController;
@@ -23,7 +23,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
 public class Galerie extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
@@ -47,7 +46,17 @@ public class Galerie extends AppCompatActivity implements BottomNavigationView.O
         //Initializer le array de publications
 
         recyclerView = findViewById(R.id.recyclerViewGalerie);
-        PublicationAdapter publicationAdapter = new PublicationAdapter(getApplicationContext(), new ArrayList<Publication>());
+        PublicationAdapter publicationAdapter = new PublicationAdapter(getApplicationContext(),
+                new ArrayList<Publication>(),
+                new PublicationAdapter.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(Publication item) {
+                        Toast.makeText(getApplicationContext(),
+                                "Item Clicked: " + item.getNom(),
+                                Toast.LENGTH_LONG).show();
+
+                    }
+        });
         recyclerView.setAdapter(publicationAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
 
