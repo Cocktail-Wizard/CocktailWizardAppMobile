@@ -11,6 +11,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.example.cocktailwizardapp.R;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
 
 
@@ -47,17 +51,24 @@ public class Connexion extends AppCompatActivity implements View.OnClickListener
             Intent lienInscription = new Intent(this, Inscription.class);
             startActivity(lienInscription);
         } else if (v == btnConnexion) {
+
+            // Vérifier que les champs sont remplis
+            if (inputNomCon.getText().toString().isEmpty() || inputMdpCon.getText().toString().isEmpty()) {
+                runOnUiThread(() -> Toast.makeText(Connexion.this, "Veuillez remplir les deux sections", Toast.LENGTH_SHORT).show());
+                return;
+            }
             new Thread(){
                 @Override
                 public void run(){
                     OkHttpClient client = new OkHttpClient();
 
-                    // Create FormBody with your parameters
+                    // Créer un FormBody car l'API traite du FormData
                     FormBody formBody = new FormBody.Builder()
                             .add("nom", inputNomCon.getText().toString())
                             .add("mdp", inputMdpCon.getText().toString())
                             .build();
 
+                    // Créer la requete, Content-Type pour FormData
                     Request request = new Request.Builder()
                             .url(API_URL + "/users/authentification")
                             .post(formBody)
@@ -66,23 +77,33 @@ public class Connexion extends AppCompatActivity implements View.OnClickListener
 
                     try (Response response = client.newCall(request).execute()){
                         if(response.isSuccessful() && response.body() != null){
+
+                            // Traiter la réponse de l'API
                             String responseBody = response.body().string();
-                            runOnUiThread(() -> {
-                                Toast.makeText(Connexion.this, "Connexion reussi", Toast.LENGTH_SHORT).show();
-                                Intent login = new Intent(Connexion.this, Galerie.class);
-                                startActivity(login);
-                                finish();
-                            });
-                        }else {
+                            JSONObject jsonResponse = new JSONObject(responseBody);
+
+                            // Vérifier si le boolean success = true
+                            if (jsonResponse.getBoolean("success")) {
+                                runOnUiThread(() -> {
+                                    Toast.makeText(Connexion.this, "Connexion réussi", Toast.LENGTH_SHORT).show();
+                                    Intent login = new Intent(Connexion.this, Galerie.class);
+                                    startActivity(login);
+                                    finish();
+                                });
+                            } else {
+                                // Extraire le message d'erreur du JSONArray
+                                JSONArray erreurs = jsonResponse.getJSONArray("errors");
+                                String messageErreur = erreurs.getString(0);
+                                runOnUiThread(() -> Toast.makeText(Connexion.this, messageErreur, Toast.LENGTH_SHORT).show());
+                            }
+                        } else {
                             runOnUiThread(() -> Toast.makeText(Connexion.this, "Identifiant ou mot de passe incorrect", Toast.LENGTH_SHORT).show());
                         }
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
+                    } catch (IOException | JSONException e) {
+                        runOnUiThread(() -> Toast.makeText(Connexion.this, "Erreur inconnue! Essayez à nouveau.", Toast.LENGTH_SHORT).show());
                     }
                 }
             }.start();
         }
     }
-
-
 }
