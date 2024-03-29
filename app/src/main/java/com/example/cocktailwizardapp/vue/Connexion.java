@@ -10,16 +10,18 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.example.cocktailwizardapp.R;
-import com.example.cocktailwizardapp.classes.ApiCommunication;
 
 import java.io.IOException;
 
-import okhttp3.Call;
-import okhttp3.Callback;
+
+import okhttp3.FormBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
 import okhttp3.Response;
 
 public class Connexion extends AppCompatActivity implements View.OnClickListener {
 
+    private static final String API_URL = "https://cocktailwizard.azurewebsites.net/api";
     TextView lienVersInscription;
     EditText inputNomCon,inputMdpCon;
     Button btnConnexion;
@@ -36,44 +38,51 @@ public class Connexion extends AppCompatActivity implements View.OnClickListener
         inputMdpCon = findViewById(R.id.inputMdpCon_id);
 
         btnConnexion = findViewById(R.id.btnConnexion_id);
-        //TODO
-        // Ajouter le onClickListener et verification des donnees
+        btnConnexion.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
-
-        if(v == lienVersInscription){
+        if (v == lienVersInscription) {
             Intent lienInscription = new Intent(this, Inscription.class);
             startActivity(lienInscription);
         } else if (v == btnConnexion) {
-            ApiCommunication conn = new ApiCommunication();
-            Callback callback = new Callback() {
+            new Thread(){
                 @Override
-                public void onFailure(Call call, IOException e) {
-                    //TODO
-                }
+                public void run(){
+                    OkHttpClient client = new OkHttpClient();
 
-                @Override
-                public void onResponse(Call call, Response response) throws IOException {
-                    //TODO
-                }
-            };
-            nom = inputNomCon.getText().toString();
-            mdp = inputMdpCon.getText().toString();
-            conn.connexion(nom,mdp,callback);
+                    // Create FormBody with your parameters
+                    FormBody formBody = new FormBody.Builder()
+                            .add("nom", inputNomCon.getText().toString())
+                            .add("mdp", inputMdpCon.getText().toString())
+                            .build();
 
-            //TODO
-            // SharedPreference pour maintenire la connection
-            // If reponse succes!
-            /*if(good){
-            Intent galerie = new Intent(this, Galerie.class);
-            startActivity(galerie);
-            }
-            else{
-            Toast.makeText(this, "Nom ou mot de passe invalide", Toast.LENGTH_SHORT).show();
-            }
-             */
+                    Request request = new Request.Builder()
+                            .url(API_URL + "/users/authentification")
+                            .post(formBody)
+                            .header("Content-Type", "application/x-www-form-urlencoded")
+                            .build();
+
+                    try (Response response = client.newCall(request).execute()){
+                        if(response.isSuccessful() && response.body() != null){
+                            String responseBody = response.body().string();
+                            runOnUiThread(() -> {
+                                Toast.makeText(Connexion.this, "Connexion reussi", Toast.LENGTH_SHORT).show();
+                                Intent login = new Intent(Connexion.this, Galerie.class);
+                                startActivity(login);
+                                finish();
+                            });
+                        }else {
+                            runOnUiThread(() -> Toast.makeText(Connexion.this, "Identifiant ou mot de passe incorrect", Toast.LENGTH_SHORT).show());
+                        }
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            }.start();
         }
     }
+
+
 }
