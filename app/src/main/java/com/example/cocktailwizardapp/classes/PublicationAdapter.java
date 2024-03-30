@@ -4,7 +4,6 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -13,16 +12,21 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.cocktailwizardapp.R;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class PublicationAdapter extends RecyclerView.Adapter<PublicationAdapter.ViewHolder> {
 
     private Context context;
     private ArrayList<Publication> publications;
+    private final OnItemClickListener listener;
 
-    public PublicationAdapter(Context context, ArrayList<Publication> publications) {
+    public interface OnItemClickListener {
+        void onItemClick(Publication item);
+    }
+
+    public PublicationAdapter(Context context, ArrayList<Publication> publications, OnItemClickListener listener) {
         this.context = context;
         this.publications = publications;
+        this.listener = listener;
     }
 
     @NonNull
@@ -36,17 +40,23 @@ public class PublicationAdapter extends RecyclerView.Adapter<PublicationAdapter.
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Publication pub = publications.get(position);
 
-        if((pub.getNom() == null) || (pub.getnb_likes() == 0)){
+        if(pub.getNom() == null){
             return;
         }
 
         holder.titreTextView.setText(pub.getNom());
-        holder.nbLikesTextView.setText(Integer.toString(pub.getnb_likes()));
+        holder.nbLikesTextView.setText(Integer.toString(pub.getNb_like()));
+
+        holder.bind(publications.get(position), listener);
     }
 
     @Override
     public int getItemCount() {
         return publications.size();
+    }
+
+    public void setData(ArrayList<Publication> pubs) {
+        this.publications = pubs;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -59,6 +69,14 @@ public class PublicationAdapter extends RecyclerView.Adapter<PublicationAdapter.
             titreTextView = itemView.findViewById(R.id.nomCocktailGalerie_id);
             nbLikesTextView = itemView.findViewById(R.id.nbAimeCocktailGalerie_id);
 
+        }
+
+        public void bind(final Publication item, final OnItemClickListener listener) {
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override public void onClick(View v) {
+                    listener.onItemClick(item);
+                }
+            });
         }
     }
 }
