@@ -3,7 +3,6 @@ package com.example.cocktailwizardapp.vue;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -17,9 +16,9 @@ import com.example.cocktailwizardapp.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.Calendar;
 
 import okhttp3.FormBody;
@@ -72,7 +71,7 @@ public class Inscription extends AppCompatActivity implements View.OnClickListen
                 public void onDateSet(DatePicker view, int annee,
                                       int mois, int jour) {
                     // Modifier le TextView avec les valeurs de date choisi
-                    outputDate.setText(jour + "-" + (mois + 1) + "-" + annee);
+                    outputDate.setText(annee + "-" + (mois + 1) + "-" + jour);
 
                 }
             }, annee, mois, jour);
@@ -109,20 +108,20 @@ public class Inscription extends AppCompatActivity implements View.OnClickListen
                     try (Response response = client.newCall(request).execute()){
                         if(response.isSuccessful() && response.body() != null){
 
-                            // Traiter la réponse de l'API
-                            String responseBody = response.body().string();
+                            // Traiter la réponse de l'API (UTF_8 car la réponse contient un accent)
+                            String responseBody = response.body().source().readString(StandardCharsets.UTF_8);
 
-                            // Extraire le array d'erreur du JSONArray envoyer par l'API
-                            JSONArray erreurs = new JSONArray(responseBody);
-
-                            // Vérifier si le array erreurs contient erreur
-                            if (erreurs.length() == 0) {
+                            // Si réponse Inscription réussie!
+                            if (responseBody.equals("\"Inscription réussie!\"")) {
                                 runOnUiThread(() -> {
                                     Toast.makeText(Inscription.this, "Inscription réussi", Toast.LENGTH_SHORT).show();
                                     // Retour a la page de connexion
                                     finish();
                                 });
                             } else {
+                                // Extraire le array d'erreur du JSONArray envoyer par l'API
+                                JSONArray erreurs = new JSONArray(responseBody);
+
                                 // Extraire le message d'erreur du JSONArray
                                 String messageErreur = erreurs.getString(0);
                                 runOnUiThread(() -> Toast.makeText(Inscription.this, messageErreur, Toast.LENGTH_SHORT).show());
