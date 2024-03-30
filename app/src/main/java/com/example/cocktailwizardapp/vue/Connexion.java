@@ -3,6 +3,7 @@ package com.example.cocktailwizardapp.vue;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -29,7 +30,7 @@ public class Connexion extends AppCompatActivity implements View.OnClickListener
     TextView lienVersInscription;
     EditText inputNomCon,inputMdpCon;
     Button btnConnexion;
-    String nom,mdp;
+    SharedPreferences sharedPreferences;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +44,8 @@ public class Connexion extends AppCompatActivity implements View.OnClickListener
 
         btnConnexion = findViewById(R.id.btnConnexion_id);
         btnConnexion.setOnClickListener(this);
+
+        sharedPreferences = getSharedPreferences("infoUtilisateur", MODE_PRIVATE);
     }
 
     @Override
@@ -86,8 +89,15 @@ public class Connexion extends AppCompatActivity implements View.OnClickListener
                             if (jsonResponse.getBoolean("success")) {
                                 runOnUiThread(() -> {
                                     Toast.makeText(Connexion.this, "Connexion réussi", Toast.LENGTH_SHORT).show();
-                                    Intent login = new Intent(Connexion.this, Galerie.class);
-                                    startActivity(login);
+
+                                    // Garder les infos du comptes
+                                    SharedPreferences.Editor infoUtilEdit = sharedPreferences.edit();
+                                    infoUtilEdit.putString("nom", inputNomCon.getText().toString());
+                                    //Je ne crois pas qu'on a besoin de garder le mot de passe en memoire
+                                    //infoUtilEdit.putString("mdp", inputMdpCon.getText().toString());
+                                    infoUtilEdit.apply();
+
+                                    // Retour à la galerie
                                     finish();
                                 });
                             } else {
