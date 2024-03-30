@@ -8,7 +8,7 @@ import okhttp3.RequestBody;
 
 public class ApiCommunication {
     private OkHttpClient client;
-    private static final String API_URL = "https://api.example.com"; //Remplacer par le lien du web api une fois pret
+    private static final String API_URL = "https://cocktailwizard.azurewebsites.net/api"; //Remplacer par le lien du web api une fois pret
 
     public ApiCommunication() {
         client = new OkHttpClient();

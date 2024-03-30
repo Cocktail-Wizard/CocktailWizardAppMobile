@@ -10,13 +10,25 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.cocktailwizardapp.R;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.Calendar;
+
+import okhttp3.FormBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 public class Inscription extends AppCompatActivity implements View.OnClickListener {
 
+    private static final String API_URL = "https://cocktailwizard.azurewebsites.net/api";
     ImageView calendrier;
     TextView outputDate;
     EditText inputNomIns,inputCourIns,inputMdp,inputConfMdp;
@@ -59,15 +71,69 @@ public class Inscription extends AppCompatActivity implements View.OnClickListen
                 public void onDateSet(DatePicker view, int annee,
                                       int mois, int jour) {
                     // Modifier le TextView avec les valeurs de date choisi
-                    outputDate.setText(jour + "-" + (mois + 1) + "-" + annee);
+                    outputDate.setText(annee + "-" + (mois + 1) + "-" + jour);
 
                 }
             }, annee, mois, jour);
             selecteurDate.show();
         } else if (v == btnInscrire) {
-            //TODO
-            //  Faire le verification de donner et startActivity
-        }
 
+            // Vérifier que les champs sont remplis
+            if (inputNomIns.getText().toString().isEmpty() || inputCourIns.getText().toString().isEmpty() || inputMdp.getText().toString().isEmpty() || inputConfMdp.getText().toString().isEmpty() || outputDate.getText().toString().isEmpty()) {
+                runOnUiThread(() -> Toast.makeText(Inscription.this, "Veuillez remplir tous les champs", Toast.LENGTH_SHORT).show());
+                return;
+            }
+
+            new Thread(){
+                @Override
+                public void run(){
+                    OkHttpClient client = new OkHttpClient();
+
+                    // Créer un FormBody car l'API traite du FormData
+                    FormBody formBody = new FormBody.Builder()
+                            .add("nom", inputNomIns.getText().toString())
+                            .add("courriel", inputCourIns.getText().toString())
+                            .add("mdp", inputMdp.getText().toString())
+                            .add("confmdp", inputConfMdp.getText().toString())
+                            .add("naissance", outputDate.getText().toString())
+                            .build();
+
+                    // Créer la requete, Content-Type pour FormData
+                    Request request = new Request.Builder()
+                            .url(API_URL + "/users")
+                            .post(formBody)
+                            .header("Content-Type", "application/x-www-form-urlencoded")
+                            .build();
+
+                    try (Response response = client.newCall(request).execute()){
+                        if(response.isSuccessful() && response.body() != null){
+
+                            // Traiter la réponse de l'API (UTF_8 car la réponse contient un accent)
+                            String responseBody = response.body().source().readString(StandardCharsets.UTF_8);
+
+                            // Si réponse Inscription réussie!
+                            if (responseBody.equals("\"Inscription réussie!\"")) {
+                                runOnUiThread(() -> {
+                                    Toast.makeText(Inscription.this, "Inscription réussi", Toast.LENGTH_SHORT).show();
+                                    // Retour a la page de connexion
+                                    finish();
+                                });
+                            } else {
+                                // Extraire le array d'erreur du JSONArray envoyer par l'API
+                                JSONArray erreurs = new JSONArray(responseBody);
+
+                                // Extraire le message d'erreur du JSONArray
+                                String messageErreur = erreurs.getString(0);
+                                runOnUiThread(() -> Toast.makeText(Inscription.this, messageErreur, Toast.LENGTH_SHORT).show());
+                            }
+                        } else {
+                            runOnUiThread(() -> Toast.makeText(Inscription.this, "Erreur inconnue! Essayez à nouveau.", Toast.LENGTH_SHORT).show());
+                        }
+                    } catch (IOException | JSONException e) {
+                        runOnUiThread(() -> Toast.makeText(Inscription.this, "Erreur : "+e.getMessage(), Toast.LENGTH_SHORT).show());
+                    }
+                }
+            }.start();
+        }
     }
 }
