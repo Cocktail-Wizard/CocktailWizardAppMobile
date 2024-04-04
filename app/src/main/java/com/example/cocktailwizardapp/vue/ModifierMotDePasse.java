@@ -75,8 +75,8 @@ public class ModifierMotDePasse extends AppCompatActivity implements View.OnClic
 
                     // Créer la requete, Content-Type pour FormData
                     Request request = new Request.Builder()
-                            .url(API_URL + "/users/authentification") //voir la route pour l'API
-                            .post(formBody)
+                            .url(API_URL + "/users")
+                            .patch(formBody)
                             .header("Content-Type", "application/x-www-form-urlencoded")
                             .build();
 
