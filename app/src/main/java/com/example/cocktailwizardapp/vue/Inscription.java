@@ -112,7 +112,7 @@ public class Inscription extends AppCompatActivity implements View.OnClickListen
                             String responseBody = response.body().source().readString(StandardCharsets.UTF_8);
 
                             // Si réponse Inscription réussie!
-                            if (responseBody.equals("\"Inscription réussie!\"")) {
+                            if (responseBody.equals("\"Inscription r\u00e9ussie!\"")) {
                                 runOnUiThread(() -> {
                                     Toast.makeText(Inscription.this, "Inscription réussi", Toast.LENGTH_SHORT).show();
                                     // Retour a la page de connexion
