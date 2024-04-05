@@ -18,9 +18,10 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 
-import okhttp3.FormBody;
+import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class ModifierMotDePasse extends AppCompatActivity implements View.OnClickListener{
@@ -28,15 +29,17 @@ public class ModifierMotDePasse extends AppCompatActivity implements View.OnClic
     ImageView imgRetourProfil;
     EditText inputMdpActuel, inputMdpNouveau, inputMdpConf;
     Button btnConf;
-    SharedPreferences sharedPreferences = getSharedPreferences("infoUtilisateur",MODE_PRIVATE);
+    SharedPreferences sharedPreferences;
     private static final String API_URL = "https://cocktailwizard.azurewebsites.net/api";
-    String nomUtilisateur = sharedPreferences.getString("nom", null);
+    String nomUtilisateur;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_modifier_mot_de_passe);
 
+        sharedPreferences = getSharedPreferences("infoUtilisateur",MODE_PRIVATE);
+        nomUtilisateur = sharedPreferences.getString("nom", null);
         imgRetourProfil = findViewById(R.id.imgRetourProfil_id);
         imgRetourProfil.setOnClickListener(this);
         
@@ -65,19 +68,28 @@ public class ModifierMotDePasse extends AppCompatActivity implements View.OnClic
                 public void run(){
                     OkHttpClient client = new OkHttpClient();
 
-                    // Créer un FormBody car l'API traite du FormData
-                    FormBody formBody = new FormBody.Builder()
-                            .add("nom", nomUtilisateur )
-                            .add("mdp", inputMdpActuel.getText().toString())
-                            .add("nouveauMdp", inputMdpNouveau.getText().toString())
-                            .add("confNouveauMdp", inputMdpConf.getText().toString())
-                            .build();
+
+                    // Créer un JSONObject
+                    JSONObject jsonObject = new JSONObject();
+                    try {
+                        jsonObject.put("nom", nomUtilisateur);
+                        jsonObject.put("mdp", inputMdpActuel.getText().toString());
+                        jsonObject.put("nouveauMdp", inputMdpNouveau.getText().toString());
+                        jsonObject.put("confNouveauMdp", inputMdpConf.getText().toString());
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
 
                     // Créer la requete, Content-Type pour FormData
+                    RequestBody requestBody =  RequestBody.create(
+                            MediaType.parse("application/json; charset=utf-8"),
+                            jsonObject.toString()
+                    );
+
                     Request request = new Request.Builder()
                             .url(API_URL + "/users")
-                            .patch(formBody)
-                            .header("Content-Type", "application/x-www-form-urlencoded")
+                            .patch(requestBody)
                             .build();
 
                     try (Response response = client.newCall(request).execute()) {
@@ -91,8 +103,6 @@ public class ModifierMotDePasse extends AppCompatActivity implements View.OnClic
                             if (jsonResponse.getBoolean("success")) {
                                 runOnUiThread(() -> {
                                     Toast.makeText(ModifierMotDePasse.this, "Votre mot de passe a été modifié avec succès!", Toast.LENGTH_SHORT).show();
-                                    // Retour a la page de profil
-                                    finish();
                                 });
                             } else {
                                 // Extraire le message d'erreur du JSONArray
