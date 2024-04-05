@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.ScrollView;
@@ -36,9 +37,9 @@ public class Galerie extends AppCompatActivity implements BottomNavigationView.O
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_galerie);
 
+
         scrollView = (ScrollView) findViewById(R.id.ScrollViewGalerie_id);
         barNav = findViewById(R.id.bottomNav_id);
-
 
         barNav.setOnNavigationItemSelectedListener(this);
         barNav.setSelectedItemId(R.id.galerie_id);
@@ -103,13 +104,31 @@ public class Galerie extends AppCompatActivity implements BottomNavigationView.O
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
         if (item.getItemId() == R.id.profile_id) {
-                // Start Activity1
+            SharedPreferences sharedPreferences = getSharedPreferences("infoUtilisateur",MODE_PRIVATE);
+            String nomUtilisateur = sharedPreferences.getString("nom", null);
+
+            // Vérifier si l'utilisateur est déjà connecté
+                if(nomUtilisateur == null){
+                    startActivity(new Intent(Galerie.this, Connexion.class));
+                    return  true;
+                }
                 startActivity(new Intent(Galerie.this, MonProfil.class));
                 return true;
         }
-
         if(item.getItemId() == R.id.galerie_id) {
             scrollView.smoothScrollTo(0,0);
+            return true;
+        }
+        if(item.getItemId() == R.id.monBar_id) {
+            SharedPreferences sharedPreferences = getSharedPreferences("infoUtilisateur",MODE_PRIVATE);
+            String nomUtilisateur = sharedPreferences.getString("nom", null);
+
+            // Vérifier si l'utilisateur est déjà connecté
+            if(nomUtilisateur == null){
+                startActivity(new Intent(Galerie.this, Connexion.class));
+                return  true;
+            }
+            startActivity(new Intent(Galerie.this, MonBar.class));
             return true;
         }
         return false;

@@ -27,7 +27,7 @@
         app:layout_constraintGuide_begin="71dp" />
 
     <TextView
-        android:id="@+id/inputChercherIngredient_id"
+        android:id="@+id/chercherIngredient_id"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@android:drawable/editbox_background"
