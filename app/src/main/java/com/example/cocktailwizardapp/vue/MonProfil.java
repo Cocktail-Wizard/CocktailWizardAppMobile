@@ -3,11 +3,14 @@ package com.example.cocktailwizardapp.vue;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Dialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.example.cocktailwizardapp.R;
 
@@ -47,12 +50,45 @@ public class MonProfil extends AppCompatActivity implements View.OnClickListener
         // implementer les fonctions de boutons
         if(v == retour){
             finish();
-        } else if (v == btnModMdp) {
+        } if (v == btnModMdp) {
             Intent modMdp = new Intent(this,ModifierMotDePasse.class);
             startActivity(modMdp);
-        } else if (v == imgProfil) {
+        } if (v == imgProfil) {
             Intent modPfp = new Intent(this, SelectionnerImageProfil.class);
             startActivityForResult(modPfp,1);
+        } if (v == btnDeco) {
+            Dialog deco = new Dialog(this);
+            deco.setContentView(R.layout.dialog_deco);
+
+            // Chercher les boutons de la page modale
+            Button btnOui = deco.findViewById(R.id.btnDecoOui_id);
+            Button btnNon = deco.findViewById(R.id.btnDecoNon_id);
+
+
+            // OnCLickListener btnOui
+            btnOui.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    // Remettre à null la valeur du SharedPreferences
+                    SharedPreferences sharedPreferences = getSharedPreferences("infoUtilisateur", MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.clear();
+                    editor.apply();
+
+                    Toast.makeText(MonProfil.this, "Bye bye!", Toast.LENGTH_SHORT).show();
+                    finish();
+                }
+            });
+
+            // OnCLickListener btnNon
+            btnNon.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    deco.dismiss();
+                }
+            });
+            deco.show();
         }
     }
 
