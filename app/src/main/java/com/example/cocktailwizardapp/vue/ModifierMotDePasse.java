@@ -114,7 +114,7 @@ public class ModifierMotDePasse extends AppCompatActivity implements View.OnClic
                             runOnUiThread(() -> Toast.makeText(ModifierMotDePasse.this, "Erreur inconnue! Essayez à nouveau.", Toast.LENGTH_SHORT).show());
                         }
                     } catch (IOException | JSONException e) {
-                        runOnUiThread(() -> Toast.makeText(ModifierMotDePasse.this, "Erreur 2: "+e.getMessage(), Toast.LENGTH_SHORT).show());
+                        runOnUiThread(() -> Toast.makeText(ModifierMotDePasse.this, "Erreur : "+e.getMessage(), Toast.LENGTH_SHORT).show());
                     }
                 }
             }.start();
