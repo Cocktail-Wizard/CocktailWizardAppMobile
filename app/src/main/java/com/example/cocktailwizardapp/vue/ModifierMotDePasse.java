@@ -106,7 +106,7 @@ public class ModifierMotDePasse extends AppCompatActivity implements View.OnClic
                                 });
                             } else {
                                 // Extraire le message d'erreur du JSONArray
-                                JSONArray erreurs = jsonResponse.getJSONArray("errors");
+                                JSONArray erreurs = jsonResponse.getJSONArray("erreurs");
                                 String messageErreur = erreurs.getString(0);
                                 runOnUiThread(() -> Toast.makeText(ModifierMotDePasse.this, messageErreur, Toast.LENGTH_SHORT).show());
                             }
@@ -114,7 +114,7 @@ public class ModifierMotDePasse extends AppCompatActivity implements View.OnClic
                             runOnUiThread(() -> Toast.makeText(ModifierMotDePasse.this, "Erreur inconnue! Essayez à nouveau.", Toast.LENGTH_SHORT).show());
                         }
                     } catch (IOException | JSONException e) {
-                        runOnUiThread(() -> Toast.makeText(ModifierMotDePasse.this, "Erreur : "+e.getMessage(), Toast.LENGTH_SHORT).show());
+                        runOnUiThread(() -> Toast.makeText(ModifierMotDePasse.this, "Erreur 2: "+e.getMessage(), Toast.LENGTH_SHORT).show());
                     }
                 }
             }.start();
