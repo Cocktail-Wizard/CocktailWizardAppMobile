@@ -1,5 +1,8 @@
 package com.example.cocktailwizardapp.classes;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +16,12 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
 import com.example.cocktailwizardapp.R;
+import com.squareup.picasso.Picasso;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 public class PublicationFragment extends DialogFragment {
     private Publication publication;
@@ -56,7 +65,10 @@ public class PublicationFragment extends DialogFragment {
             System.out.println(publication.toString());
 
             if (publication != null) {
-                // Assign values to text fields from the Post object
+                //Ajouter image
+                Picasso.get().load(publication.getImg_cocktail()).resize(500,0).into(imgCocktail);
+
+                // Assigner les valeurs texte pour les champs a partir de la Publication
                 nomCocktail.setText(publication.getNom());
                 ingredients.setText("Ingredients: ");
                 ingredientsScroll.setText(publication.getIngredients().toString());

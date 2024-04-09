@@ -66,7 +66,11 @@ public class ConnexionController {
                 ArrayList<Publication> pubs = null;
                 pubs = jc.creerPublications(myResponse, pubs);
                 System.out.println("Apres jc 1");
-                System.out.println("Apres jc 2 :::: =====" + pubs.toString());
+                try{
+                    System.out.println("Apres jc 2 :::: =====" + pubs.toString());
+                } catch (Exception e){
+                    System.out.println("Exception: Unable to transform response to String response invalid.");
+                }
                 callback.onResponseCallback(pubs);
                 response.body().close();
             }

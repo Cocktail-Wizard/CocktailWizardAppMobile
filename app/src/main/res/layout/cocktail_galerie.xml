@@ -10,8 +10,8 @@
 
     <ImageView
         android:id="@+id/imgCocktailGalerie_id"
-        android:layout_width="272dp"
-        android:layout_height="400dp"
+        android:layout_width="378dp"
+        android:layout_height="387dp"
         android:background="@android:color/transparent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -36,6 +36,10 @@
         android:id="@+id/nbAimeCocktailGalerie_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:includeFontPadding="true"
+        android:outlineProvider="none"
+        android:shadowColor="#000000"
+        android:shadowRadius="2"
         android:text="TextView"
         android:textAlignment="viewEnd"
         android:textColor="#FF0000"

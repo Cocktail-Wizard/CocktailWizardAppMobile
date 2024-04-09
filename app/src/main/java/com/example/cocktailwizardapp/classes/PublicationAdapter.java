@@ -4,12 +4,14 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cocktailwizardapp.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -47,6 +49,9 @@ public class PublicationAdapter extends RecyclerView.Adapter<PublicationAdapter.
         holder.titreTextView.setText(pub.getNom());
         holder.nbLikesTextView.setText(Integer.toString(pub.getNb_like()));
 
+        //Ajouter image a l'affichage
+        Picasso.get().load(pub.getImg_cocktail()).resize(500, 0).into(holder.imgCocktail);
+
         holder.bind(publications.get(position), listener);
     }
 
@@ -63,11 +68,13 @@ public class PublicationAdapter extends RecyclerView.Adapter<PublicationAdapter.
 
         TextView titreTextView;
         TextView nbLikesTextView;
+        ImageView imgCocktail;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             titreTextView = itemView.findViewById(R.id.nomCocktailGalerie_id);
             nbLikesTextView = itemView.findViewById(R.id.nbAimeCocktailGalerie_id);
+            imgCocktail = itemView.findViewById(R.id.imgCocktailGalerie_id);
 
         }
 

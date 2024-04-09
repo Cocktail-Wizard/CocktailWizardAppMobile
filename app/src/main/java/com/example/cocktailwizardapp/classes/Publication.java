@@ -88,7 +88,7 @@ public class Publication implements Parcelable {
     }
 
     public void setImg_cocktail(String img_cocktail) {
-        this.img_cocktail = img_cocktail;
+        this.img_cocktail = "https://equipe105.tch099.ovh/images?image=" + img_cocktail;
     }
 
     public String getImg_auteur() {
