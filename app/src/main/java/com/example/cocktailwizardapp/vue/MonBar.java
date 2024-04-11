@@ -9,6 +9,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -24,6 +25,7 @@ import com.example.cocktailwizardapp.classes.Ingredient;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -31,8 +33,10 @@ import java.util.List;
 
 import okhttp3.Call;
 import okhttp3.Callback;
+import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class MonBar extends AppCompatActivity implements View.OnClickListener {
@@ -53,6 +57,65 @@ public class MonBar extends AppCompatActivity implements View.OnClickListener {
         getIngredientsUtilisateur();
     }
 
+    View.OnClickListener ingredientButtonListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Log.d("MonBar", "Button clicked");
+            Button clickedButton = (Button) v;
+            String ingredient = clickedButton.getText().toString();
+
+            SharedPreferences sharedPreferences = getSharedPreferences("infoUtilisateur",MODE_PRIVATE);
+            String nomUtilisateur = sharedPreferences.getString("nom", null);
+            new Thread(() -> {
+                OkHttpClient client = new OkHttpClient();
+                MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+                JSONObject jsonObject = new JSONObject();
+                try {
+                    jsonObject.put("nomIngredient", ingredient);
+                    jsonObject.put("username",nomUtilisateur );
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                RequestBody body = RequestBody.create(JSON, jsonObject.toString());
+                Request request = new Request.Builder()
+                        .url(API_URL + "/users/ingredients")
+                        .delete(body)
+                        .build();
+
+                try {
+                    Response response = client.newCall(request).execute();
+                    if(response.isSuccessful() && response.body() != null) {
+
+                        // Traiter la réponse de l'API
+                        String responseBody = response.body().string();
+                        JSONArray jsonArray = new JSONArray(responseBody);
+                        List<String> ingredients = new ArrayList<>();
+                        for (int i = 0; i < jsonArray.length(); i++) {
+                            ingredients.add(jsonArray.getString(i));
+                        }
+
+                        // Vérifier si l'ingrédient à été supprimé
+                        if (!ingredients.contains(ingredient)) {
+                            Log.d("MonBar", "retrait");
+                            // Retirer le button correspondant à l'ingrédient
+                            runOnUiThread(() -> {
+                                LinearLayout linearLayout = findViewById(R.id.monBarLL_id);
+                                linearLayout.removeView(v);
+                                Toast.makeText(MonBar.this, "Ingrédient retiré avec succès!", Toast.LENGTH_SHORT).show();
+                            });
+                        } else {
+                            runOnUiThread(() -> Toast.makeText(MonBar.this, "Erreur retrait de l'ingrédient.", Toast.LENGTH_SHORT).show());
+                        }
+                    } else {
+                        runOnUiThread(() -> Toast.makeText(MonBar.this, "Erreur inconnue! Essayez à nouveau.", Toast.LENGTH_SHORT).show());
+                    }
+
+                } catch (IOException | JSONException e) {
+                    e.printStackTrace();
+                }
+            }).start();
+        }
+    };
     @Override
     public void onClick(View v) {
         if(v == btnRetour) {
@@ -111,6 +174,9 @@ public class MonBar extends AppCompatActivity implements View.OnClickListener {
                     }
                 }
             });
+        } if ( v instanceof Button) {
+            Button btn = (Button) v;
+
         }
     }
 
@@ -148,6 +214,7 @@ public class MonBar extends AppCompatActivity implements View.OnClickListener {
 
                                     Button button = new Button(MonBar.this);
                                     button.setText(ingredient);
+                                    button.setOnClickListener(ingredientButtonListener);
                                     linearLayout.addView(button);
                                 } catch (JSONException e) {
                                     e.printStackTrace();
