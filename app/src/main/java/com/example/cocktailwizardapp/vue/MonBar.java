@@ -5,11 +5,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Dialog;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -48,7 +50,7 @@ public class MonBar extends AppCompatActivity implements View.OnClickListener {
         chercherIngredient = findViewById(R.id.chercherIngredient_id);
         chercherIngredient.setOnClickListener(this);
 
-
+        getIngredientsUtilisateur();
     }
 
     @Override
@@ -110,5 +112,56 @@ public class MonBar extends AppCompatActivity implements View.OnClickListener {
                 }
             });
         }
+    }
+
+    private void getIngredientsUtilisateur() {
+        OkHttpClient client = new OkHttpClient();
+
+        SharedPreferences sharedPreferences = getSharedPreferences("infoUtilisateur",MODE_PRIVATE);
+        String nomUtilisateur = sharedPreferences.getString("nom", null);
+
+        Request request = new Request.Builder()
+                .url(API_URL + "/users/" + nomUtilisateur + "/ingredients")
+                .build();
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+                runOnUiThread(() -> Toast.makeText(MonBar.this, "Erreur :" + e, Toast.LENGTH_SHORT).show());
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful() && response.body() != null) {
+                    String responseBody = response.body().string();
+
+                    try {
+                        JSONArray ingredients = new JSONArray(responseBody);
+
+                        runOnUiThread(() -> {
+                            LinearLayout linearLayout = findViewById(R.id.monBarLL_id);
+
+                            for (int i = 0; i < ingredients.length(); i++) {
+                                try {
+                                    String ingredient = ingredients.getString(i);
+
+                                    Button button = new Button(MonBar.this);
+                                    button.setText(ingredient);
+                                    linearLayout.addView(button);
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        });
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        runOnUiThread(() -> Toast.makeText(MonBar.this, "Erreur : " + e.getMessage(), Toast.LENGTH_SHORT).show());
+                    }
+                } else {
+                    runOnUiThread(() -> Toast.makeText(MonBar.this, "Erreur inconnue! Essayez à nouveau.", Toast.LENGTH_SHORT).show());
+                }
+            }
+        });
     }
 }
