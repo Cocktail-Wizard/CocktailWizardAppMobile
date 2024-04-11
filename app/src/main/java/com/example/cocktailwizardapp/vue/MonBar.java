@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -47,6 +48,7 @@ public class MonBar extends AppCompatActivity implements View.OnClickListener {
         chercherIngredient = findViewById(R.id.chercherIngredient_id);
         chercherIngredient.setOnClickListener(this);
 
+
     }
 
     @Override
@@ -62,6 +64,8 @@ public class MonBar extends AppCompatActivity implements View.OnClickListener {
 
 
             EditText searchbar = dialog.findViewById(R.id.inputChercherIngredient_id);
+
+            LinearLayout linearLayout = findViewById(R.id.monBarLL_id);
 
             OkHttpClient client = new OkHttpClient();
 
@@ -93,26 +97,9 @@ public class MonBar extends AppCompatActivity implements View.OnClickListener {
                                     // Créer un adapteur et l'ajouter au RecyclerView
                                     RecyclerView recyclerView = dialog.findViewById(R.id.monbarRecyler_id);
                                     recyclerView.setLayoutManager(new LinearLayoutManager(MonBar.this));
-                                    IngredientAdapteur adapter = new IngredientAdapteur(ingredients);
+                                    IngredientAdapteur adapter = new IngredientAdapteur(ingredients, MonBar.this, linearLayout);
                                     recyclerView.setAdapter(adapter);
-                                    searchbar.addTextChangedListener(new TextWatcher() {
-                                        @Override
-                                        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-                                        }
-
-                                        @Override
-                                        public void onTextChanged(CharSequence s, int start, int before, int count) {
-                                            adapter.getFilter().filter(s);
-                                        }
-
-                                        @Override
-                                        public void afterTextChanged(Editable s) {
-
-                                        }
-                                    });
-
-                                    // Show the dialog
                                     dialog.show();
                                 } catch (JSONException e) {
                                     e.printStackTrace();
