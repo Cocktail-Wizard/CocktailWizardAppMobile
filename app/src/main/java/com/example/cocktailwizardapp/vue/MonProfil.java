@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.cocktailwizardapp.R;
+import com.example.cocktailwizardapp.classes.ApiCommunication;
 
 public class MonProfil extends AppCompatActivity implements View.OnClickListener {
 
@@ -92,6 +93,55 @@ public class MonProfil extends AppCompatActivity implements View.OnClickListener
                 }
             });
             deco.show();
+        } if (v == btnSuppCompt) {
+            Dialog suppCpt = new Dialog(this);
+            suppCpt.setContentView(R.layout.dialog_supprimer_compte);
+
+            Button btnOui = suppCpt.findViewById(R.id.btnOuiProfil_id);
+            Button btnNon = suppCpt.findViewById(R.id.btnNonProfil_id);
+
+
+            btnOui.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    SharedPreferences sharedPreferences = getSharedPreferences("infoUtilisateur",MODE_PRIVATE);
+                    String nom = sharedPreferences.getString("nom",null);
+                    ApiCommunication apiCommunication = new ApiCommunication();
+                    apiCommunication.supprimerProfil(nom, new ApiCommunication.ApiCallback() {
+                        @Override
+                        public void onApiSuccess() {
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                                    editor.clear();
+                                    editor.apply();
+                                    finish();
+                                    Toast.makeText(MonProfil.this, ":(.", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                        }
+
+                        @Override
+                        public void onApiFailure() {
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Toast.makeText(MonProfil.this, "Erreur de communication.", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                        }
+                    });
+                    suppCpt.dismiss();
+                }
+            });
+            btnNon.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    suppCpt.dismiss();
+                }
+            });
+            suppCpt.show();
         }
     }
 }

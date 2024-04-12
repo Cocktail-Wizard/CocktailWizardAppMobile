@@ -61,4 +61,37 @@ public class ApiCommunication {
             }
         });
     }
+
+    public void supprimerProfil(String username, final ApiCallback callback) {
+        MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+        JSONObject json = new JSONObject();
+        try {
+            json.put("username", username);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        RequestBody body = RequestBody.create(JSON, json.toString());
+        Request request = new Request.Builder()
+                .url(API_URL + "/users")
+                .delete(body)
+                .build();
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+                callback.onApiFailure();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    callback.onApiSuccess();
+                } else {
+                    callback.onApiFailure();
+                }
+            }
+        });
+    }
 }
