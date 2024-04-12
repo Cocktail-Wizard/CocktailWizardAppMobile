@@ -2,4 +2,7 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="background_authentification">#B8C1EC</color>
+    <color name="background_principale">#232946</color>
+    <color name="cocktail_nom_galerie">#A5A1A1</color>
 </resources>
