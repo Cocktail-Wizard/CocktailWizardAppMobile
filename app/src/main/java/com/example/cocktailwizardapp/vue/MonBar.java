@@ -175,6 +175,7 @@ public class MonBar extends AppCompatActivity implements View.OnClickListener{
 
                                                         Button button = new Button(MonBar.this);
                                                         button.setText(ingredient.getIngredient());
+                                                        button.setOnClickListener(ingredientButtonListener);
                                                         linearLayout.addView(button);
                                                         Toast.makeText(MonBar.this, "Ingrédient ajouté.", Toast.LENGTH_SHORT).show();
                                                     });
