@@ -7,8 +7,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.Dialog;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +19,7 @@ import android.widget.Toast;
 
 import com.example.cocktailwizardapp.R;
 import com.example.cocktailwizardapp.adapteur.IngredientAdapteur;
+import com.example.cocktailwizardapp.classes.ApiCommunication;
 import com.example.cocktailwizardapp.classes.Ingredient;
 
 import org.json.JSONArray;
@@ -39,7 +38,7 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-public class MonBar extends AppCompatActivity implements View.OnClickListener {
+public class MonBar extends AppCompatActivity implements View.OnClickListener{
     private static final String API_URL = "https://cocktailwizard.azurewebsites.net/api";
     ImageView btnRetour;
     TextView chercherIngredient;
@@ -60,7 +59,7 @@ public class MonBar extends AppCompatActivity implements View.OnClickListener {
     View.OnClickListener ingredientButtonListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Log.d("MonBar", "Button clicked");
+
             Button clickedButton = (Button) v;
             String ingredient = clickedButton.getText().toString();
 
@@ -162,7 +161,37 @@ public class MonBar extends AppCompatActivity implements View.OnClickListener {
                                     // Créer un adapteur et l'ajouter au RecyclerView
                                     RecyclerView recyclerView = dialog.findViewById(R.id.monbarRecyler_id);
                                     recyclerView.setLayoutManager(new LinearLayoutManager(MonBar.this));
-                                    IngredientAdapteur adapter = new IngredientAdapteur(ingredients, MonBar.this, linearLayout);
+                                    IngredientAdapteur adapter = new IngredientAdapteur(ingredients, MonBar.this, linearLayout, new IngredientAdapteur.OnIngredientClickListener() {
+                                        @Override
+                                        public void onIngredientClick(Ingredient ingredient) {
+                                            ApiCommunication apiCommunication = new ApiCommunication();
+                                            SharedPreferences sharedPreferences = getSharedPreferences("infoUtilisateur",MODE_PRIVATE);
+                                            String nomUtilisateur = sharedPreferences.getString("nom", null);
+                                            apiCommunication.ajouterIngredients(ingredient.getIngredient(), nomUtilisateur, new ApiCommunication.ApiCallback() {
+                                                @Override
+                                                public void onApiSuccess() {
+                                                    runOnUiThread(() -> {
+                                                        LinearLayout linearLayout = findViewById(R.id.monBarLL_id);
+
+                                                        Button button = new Button(MonBar.this);
+                                                        button.setText(ingredient.getIngredient());
+                                                        linearLayout.addView(button);
+                                                        Toast.makeText(MonBar.this, "Ingrédient ajouté.", Toast.LENGTH_SHORT).show();
+                                                    });
+                                                }
+
+                                                @Override
+                                                public void onApiFailure() {
+                                                    runOnUiThread(new Runnable() {
+                                                        @Override
+                                                        public void run() {
+                                                            Toast.makeText(MonBar.this, "Ingrédient déjà présent dans la liste.", Toast.LENGTH_SHORT).show();
+                                                        }
+                                                    });
+                                                }
+                                            });
+                                        }
+                                    });
                                     recyclerView.setAdapter(adapter);
 
                                     dialog.show();
@@ -174,9 +203,6 @@ public class MonBar extends AppCompatActivity implements View.OnClickListener {
                     }
                 }
             });
-        } if ( v instanceof Button) {
-            Button btn = (Button) v;
-
         }
     }
 
