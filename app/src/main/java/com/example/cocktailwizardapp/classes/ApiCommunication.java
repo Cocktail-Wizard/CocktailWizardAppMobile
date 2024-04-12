@@ -1,43 +1,64 @@
 package com.example.cocktailwizardapp.classes;
 
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+
+
+import okhttp3.Call;
 import okhttp3.Callback;
-import okhttp3.FormBody;
+import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
+import okhttp3.Response;
 
 public class ApiCommunication {
     private OkHttpClient client;
-    private static final String API_URL = "https://cocktailwizard.azurewebsites.net/api"; //Remplacer par le lien du web api une fois pret
-
+    private static final String API_URL = "https://cocktailwizard.azurewebsites.net/api";
     public ApiCommunication() {
         client = new OkHttpClient();
     }
-
-    public void connexion(String nom, String mdp, Callback callback) {
-        RequestBody formBody = new FormBody.Builder()
-                .add("nom_utilisateur", nom)
-                .add("mdp", mdp)
-                .build();
-        Request request = new Request.Builder()
-                .url(API_URL + "/connexion")
-                .post(formBody)
-                .build();
-        client.newCall(request).enqueue(callback);
+    public interface ApiCallback {
+        void onApiSuccess();
+        void onApiFailure();
     }
 
-    public void inscription(String nom, String courriel, String mdp, String naiss, Callback callback) {
-        RequestBody formBody = new FormBody.Builder()
-                .add("nom_utilisateur", nom)
-                .add("mdp", mdp)
-                .add("courriel", courriel)
-                .add("naiss",naiss)
 
-                .build();
+    public void ajouterIngredients(String nomIngredient, String username, ApiCallback callback) {
+
+        MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+        JSONObject json = new JSONObject();
+        try {
+            json.put("nomIngredient", nomIngredient);
+            json.put("username", username);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        RequestBody body = RequestBody.create(JSON, json.toString());
         Request request = new Request.Builder()
-                .url(API_URL + "/inscription")
-                .post(formBody)
+                .url(API_URL+"/users/ingredients")
+                .post(body)
                 .build();
-        client.newCall(request).enqueue(callback);
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+                callback.onApiFailure();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    callback.onApiSuccess();
+                } else {
+                    callback.onApiFailure();
+                }
+            }
+        });
     }
 }
