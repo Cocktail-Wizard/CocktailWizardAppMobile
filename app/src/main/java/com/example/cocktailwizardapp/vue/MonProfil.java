@@ -1,6 +1,5 @@
 package com.example.cocktailwizardapp.vue;
 
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Dialog;
@@ -10,6 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.cocktailwizardapp.R;
@@ -17,7 +17,9 @@ import com.example.cocktailwizardapp.R;
 public class MonProfil extends AppCompatActivity implements View.OnClickListener {
 
     Button btnModMdp, btnDeco, btnSuppCompt;
-    ImageView imgProfil,retour;
+    ImageView retour;
+
+    TextView nomUtilTV;
 
     int imageChoisie;
     @Override
@@ -36,8 +38,12 @@ public class MonProfil extends AppCompatActivity implements View.OnClickListener
         btnSuppCompt = findViewById(R.id.btnSuppCompt_id);
         btnSuppCompt.setOnClickListener(this);
 
-        imgProfil = findViewById(R.id.imgProfil_id);
-        imgProfil.setOnClickListener(this);
+        nomUtilTV = findViewById(R.id.nomUtilProfil_id);
+
+        SharedPreferences sharedPreferences = getSharedPreferences("infoUtilisateur",MODE_PRIVATE);
+        String nomUtilisateur = "@"+sharedPreferences.getString("nom", null);
+
+        nomUtilTV.setText(nomUtilisateur);
 
         retour = findViewById(R.id.retourMP_id);
         retour.setOnClickListener(this);
@@ -53,9 +59,6 @@ public class MonProfil extends AppCompatActivity implements View.OnClickListener
         } if (v == btnModMdp) {
             Intent modMdp = new Intent(this,ModifierMotDePasse.class);
             startActivity(modMdp);
-        } if (v == imgProfil) {
-            Intent modPfp = new Intent(this, SelectionnerImageProfil.class);
-            startActivityForResult(modPfp,1);
         } if (v == btnDeco) {
             Dialog deco = new Dialog(this);
             deco.setContentView(R.layout.dialog_deco);
@@ -89,17 +92,6 @@ public class MonProfil extends AppCompatActivity implements View.OnClickListener
                 }
             });
             deco.show();
-        }
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == 1 && resultCode == RESULT_OK && data != null) {
-            int imageChoisie = data.getIntExtra("imageChoisie", 0);
-
-            imgProfil.setImageResource(imageChoisie);
         }
     }
 }
