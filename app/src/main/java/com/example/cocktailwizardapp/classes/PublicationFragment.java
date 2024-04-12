@@ -14,6 +14,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cocktailwizardapp.R;
 import com.squareup.picasso.Picasso;
@@ -22,6 +24,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 
 public class PublicationFragment extends DialogFragment {
     private Publication publication;
@@ -56,6 +59,7 @@ public class PublicationFragment extends DialogFragment {
         TextView description = view.findViewById(R.id.descFiche_id);
         TextView titrePreparation = view.findViewById(R.id.titrePrepFiche_id);
         TextView preparation = view.findViewById(R.id.prepFiche_id);
+        RecyclerView recyclerCommentaires = view.findViewById(R.id.recyclerViewCommentaires);
 
         System.out.println("Dedans onCreateView");
 
@@ -78,6 +82,38 @@ public class PublicationFragment extends DialogFragment {
                 description.setText(publication.getDesc());
                 titrePreparation.setText("Titre Preparation: ");
                 preparation.setText(publication.getPreparation());
+
+
+                //Ajouter commentaires
+                CommentaireAdapter commentaireAdapter = new CommentaireAdapter(getContext().getApplicationContext(),
+                                                                    new ArrayList<Commentaire>());
+                recyclerCommentaires.setAdapter(commentaireAdapter);
+                recyclerCommentaires.setLayoutManager(new LinearLayoutManager(getContext().getApplicationContext()));
+
+                JSONController jc = new JSONController();
+                ConnexionController cc = new ConnexionController(jc);
+
+                try {
+                    cc.envoyerRequeteGetCommentairesCocktail(new ResponseCallbackComments() {
+                        @Override
+                        public void onResponseCallback(ArrayList<Commentaire> comments) {
+                            getActivity().runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    System.out.println("Atteint Runnable!");
+                                    System.out.println("DATA ADAPTER: " + comments.toString());
+                                    commentaireAdapter.setData(comments);
+                                    commentaireAdapter.notifyDataSetChanged();
+                                }
+
+                            });
+                        }
+                    }, publication.getId_cocktail());
+
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+
             }
         }
 
