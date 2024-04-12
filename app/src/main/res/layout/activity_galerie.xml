@@ -10,7 +10,7 @@
     <ScrollView
         android:id="@+id/ScrollViewGalerie_id"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="687dp"
         android:fillViewport="true">
 
         <androidx.recyclerview.widget.RecyclerView
