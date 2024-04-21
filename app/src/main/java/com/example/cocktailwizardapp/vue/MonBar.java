@@ -214,7 +214,7 @@ public class MonBar extends AppCompatActivity implements View.OnClickListener{
         String nomUtilisateur = sharedPreferences.getString("nom", null);
 
         Request request = new Request.Builder()
-                .url(API_URL + "/users/" + nomUtilisateur + "/ingredients")
+                .url(API_URL + "/ingredients?user=" + nomUtilisateur)
                 .build();
 
         client.newCall(request).enqueue(new Callback() {
@@ -229,29 +229,34 @@ public class MonBar extends AppCompatActivity implements View.OnClickListener{
                 if (response.isSuccessful() && response.body() != null) {
                     String responseBody = response.body().string();
 
-                    try {
-                        JSONArray ingredients = new JSONArray(responseBody);
+                    if(!responseBody.isEmpty()){
+                        try {
+                            JSONArray ingredients = new JSONArray(responseBody);
 
-                        runOnUiThread(() -> {
-                            LinearLayout linearLayout = findViewById(R.id.monBarLL_id);
+                            runOnUiThread(() -> {
+                                LinearLayout linearLayout = findViewById(R.id.monBarLL_id);
 
-                            for (int i = 0; i < ingredients.length(); i++) {
-                                try {
-                                    String ingredient = ingredients.getString(i);
+                                if(ingredients.length() > 0) {
+                                    for (int i = 0; i < ingredients.length(); i++) {
+                                        try {
+                                            String ingredient = ingredients.getString(i);
 
-                                    Button button = new Button(MonBar.this);
-                                    button.setText(ingredient);
-                                    button.setOnClickListener(ingredientButtonListener);
-                                    linearLayout.addView(button);
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
+                                            Button button = new Button(MonBar.this);
+                                            button.setText(ingredient);
+                                            button.setOnClickListener(ingredientButtonListener);
+                                            linearLayout.addView(button);
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
                                 }
-                            }
-                        });
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                        runOnUiThread(() -> Toast.makeText(MonBar.this, "Erreur : " + e.getMessage(), Toast.LENGTH_SHORT).show());
+                            });
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            runOnUiThread(() -> Toast.makeText(MonBar.this, "Erreur : " + e.getMessage(), Toast.LENGTH_SHORT).show());
+                        }
                     }
+
                 } else {
                     runOnUiThread(() -> Toast.makeText(MonBar.this, "Erreur inconnue! Essayez à nouveau.", Toast.LENGTH_SHORT).show());
                 }
