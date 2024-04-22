@@ -3,12 +3,12 @@
 
     <item
         android:id="@+id/monBar_id"
-        android:icon="@drawable/ic_calendrier"
+        android:icon="@drawable/baseline_liquor_24"
         android:title="Mon_Bar" />
 
     <item
         android:id="@+id/galerie_id"
-        android:icon="@drawable/baseline_account_balance_24"
+        android:icon="@drawable/baseline_home_24"
         android:title="Galerie" />
 
     <item
