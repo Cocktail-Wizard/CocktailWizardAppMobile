@@ -76,11 +76,9 @@ public class PublicationFragment extends DialogFragment {
                 nomCocktail.setText(publication.getNom());
                 ingredients.setText("Ingredients: ");
                 ingredientsScroll.setText(publication.getIngredients().toString());
-                nbAime.setText(Integer.toString(publication.getNb_like()));
-                nomAuteur.setText(publication.getAuteur());
-                titreDesc.setText("Titre Description: ");
+                nbAime.setText(Integer.toString(publication.getNb_like())+"❤️");
+                nomAuteur.setText("@"+publication.getAuteur());
                 description.setText(publication.getDesc());
-                titrePreparation.setText("Titre Preparation: ");
                 preparation.setText(publication.getPreparation());
 
 
