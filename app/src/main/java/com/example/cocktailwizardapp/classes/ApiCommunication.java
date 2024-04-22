@@ -94,4 +94,14 @@ public class ApiCommunication {
             }
         });
     }
+
+    public void getInfoUtilisateur(String nom, Callback callback) {
+        String url = API_URL + "/users?user=" + nom;
+
+        Request request = new Request.Builder()
+                .url(url)
+                .build();
+
+        client.newCall(request).enqueue(callback);
+    }
 }
