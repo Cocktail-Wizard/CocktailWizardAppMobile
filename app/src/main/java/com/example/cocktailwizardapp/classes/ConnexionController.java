@@ -11,7 +11,8 @@ import okhttp3.Response;
 
 public class ConnexionController {
     public String url= "https://reqres.in/api/users/2";
-    public String url2 = "https://cocktailwizard.azurewebsites.net/api/cocktails/tri/like";
+    public String url2 = "https://cocktailwizard.azurewebsites.net/api/cocktails?tri=like&page=1-2";
+    public String url3 = "https://cocktailwizard.azurewebsites.net/api/cocktails/commentaires?cocktail=%s";
 
     public JSONController jc;
 
@@ -72,6 +73,41 @@ public class ConnexionController {
                     System.out.println("Exception: Unable to transform response to String response invalid.");
                 }
                 callback.onResponseCallback(pubs);
+                response.body().close();
+            }
+        });
+    }
+
+    public void envoyerRequeteGetCommentairesCocktail(final ResponseCallbackComments callback, int id_cocktail) throws IOException{
+        OkHttpClient client = new OkHttpClient();
+
+        String requestUrl = String.format(url3, id_cocktail);
+        System.out.println("Formatted string: " + requestUrl );
+
+        Request request = new Request.Builder()
+                .url(requestUrl)
+                .build();
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                call.cancel();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+
+                final String myResponse = response.body().string();
+
+                System.out.println("HTTP TEST COMMENTAIRES WIZRD:::" + myResponse);
+                ArrayList<Commentaire> comments = new ArrayList<Commentaire>();
+                comments = jc.getCommentaires(myResponse, comments);
+                try{
+                    System.out.println("Apres jc commentaire :::: =====" + comments.toString());
+                } catch (Exception e){
+                    System.out.println("Exception: Unable to transform response to String response invalid.");
+                }
+                callback.onResponseCallback(comments);
                 response.body().close();
             }
         });

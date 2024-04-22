@@ -32,4 +32,18 @@ public class JSONController {
             return pubs;
         }
     }
+
+    public ArrayList<Commentaire> getCommentaires(String jsonData, ArrayList<Commentaire> comments){
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            if(jsonData == ""){
+                comments.add(new Commentaire(1, 0, false,null, null, "Pas de commentaires", null));
+                return comments;
+            }
+            return objectMapper.readValue(jsonData, new TypeReference<ArrayList<Commentaire>>() {});
+        }catch (IOException e){
+            e.printStackTrace();
+            return comments;
+        }
+    }
 }

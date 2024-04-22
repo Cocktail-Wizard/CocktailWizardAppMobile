@@ -8,6 +8,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 
 import java.sql.Blob;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Publication implements Parcelable {
@@ -26,8 +27,10 @@ public class Publication implements Parcelable {
     private String type_verre;
     private boolean liked;
     private Ingredient[] ingredients_cocktail;
+    private ArrayList<Commentaire> commentaires;
 
-    //toString
+
+//toString
 
     @Override
     public String toString() {
@@ -162,7 +165,13 @@ public class Publication implements Parcelable {
     public void setIngredients_cocktail(Ingredient[] ingredients) {
         this.ingredients_cocktail = ingredients;
     }
+    public ArrayList<Commentaire> getCommentaires() {
+        return commentaires;
+    }
 
+    public void setCommentaires(ArrayList<Commentaire> commentaires) {
+        this.commentaires = commentaires;
+    }
 
     @Override
     public int describeContents() {

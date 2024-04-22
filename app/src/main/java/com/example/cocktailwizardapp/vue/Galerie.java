@@ -1,5 +1,6 @@
 package com.example.cocktailwizardapp.vue;
 
+import static android.app.PendingIntent.getActivity;
 import static java.security.AccessController.getContext;
 
 import androidx.annotation.NonNull;
@@ -31,6 +32,7 @@ public class Galerie extends AppCompatActivity implements BottomNavigationView.O
     BottomNavigationView barNav;
     ScrollView scrollView;
     RecyclerView recyclerView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -128,7 +130,7 @@ public class Galerie extends AppCompatActivity implements BottomNavigationView.O
                 startActivity(new Intent(Galerie.this, Connexion.class));
                 return  true;
             }
-            startActivity(new Intent(Galerie.this, MonBar.class));
+            //startActivity(new Intent(Galerie.this, MonBar.class));
             return true;
         }
         return false;
