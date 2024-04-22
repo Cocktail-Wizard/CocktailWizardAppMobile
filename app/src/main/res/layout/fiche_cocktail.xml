@@ -12,24 +12,23 @@
         android:layout_height="157dp"
         app:layout_constraintBottom_toTopOf="@+id/guideline9"
         app:layout_constraintEnd_toStartOf="@+id/guideline10"
-        app:layout_constraintHorizontal_bias="0.333"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.551"
+        app:layout_constraintVertical_bias="0.625"
         tools:srcCompat="@tools:sample/avatars" />
 
     <TextView
         android:id="@+id/nomCocktailFiche_id"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
         android:text="TextView"
         android:textAlignment="center"
-        android:textSize="24sp"
+        android:textSize="26sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.545"
-        app:layout_constraintStart_toStartOf="@+id/guideline10"
+        app:layout_constraintStart_toEndOf="@+id/imgCocktailFiche_id"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -40,26 +39,28 @@
         android:textAlignment="textStart"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/guideline2"
+        app:layout_constraintBottom_toTopOf="@+id/ingredientsFicheSV_id"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/guideline10" />
+        app:layout_constraintStart_toEndOf="@+id/imgCocktailFiche_id" />
 
     <ScrollView
         android:id="@+id/ingredientsFicheSV_id"
-        android:layout_width="188dp"
+        android:layout_width="230dp"
         android:layout_height="96dp"
+        android:layout_marginEnd="8dp"
         android:background="@drawable/rectangle_arrondi_blanc"
         app:layout_constraintBottom_toTopOf="@+id/guideline9"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/guideline10"
-        app:layout_constraintTop_toTopOf="@+id/guideline2">
+        app:layout_constraintStart_toEndOf="@+id/imgCocktailFiche_id">
 
         <TextView
             android:id="@+id/listeIngredientsFiche_id"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="TextView" />
+            android:layout_marginLeft="10sp"
+            android:text="TextView"
+            android:textSize="20sp" />
     </ScrollView>
 
     <TextView
@@ -120,13 +121,6 @@
     </ScrollView>
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="106dp" />
-
-    <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline7"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -152,7 +146,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_begin="220dp" />
+        app:layout_constraintGuide_begin="203dp" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline"
