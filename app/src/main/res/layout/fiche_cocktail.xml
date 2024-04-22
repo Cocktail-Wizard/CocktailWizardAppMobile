@@ -189,10 +189,10 @@
         android:background="@drawable/rectangle_arrondi_blanc"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.372"
+        app:layout_constraintHorizontal_bias="0.352"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline14"
-        app:layout_constraintVertical_bias="0.099">
+        app:layout_constraintVertical_bias="0.17">
 
         <TextView
             android:id="@+id/prepFiche_id"

@@ -83,7 +83,12 @@ public class PublicationFragment extends DialogFragment {
                 // Assigner les valeurs texte pour les champs a partir de la Publication
                 nomCocktail.setText(publication.getNom());
                 ingredients.setText("Ingredients: ");
-                ingredientsScroll.setText(publication.getIngredients().toString());
+
+                String ingredientsString = "";
+                for(Ingredient i : publication.getIngredients()){
+                    ingredientsString += i.toString() + "\n";
+                }
+                ingredientsScroll.setText(ingredientsString);
                 nbAime.setText(Integer.toString(publication.getNb_like())+"❤️");
                 nomAuteur.setText("@"+publication.getAuteur());
                 description.setText(publication.getDesc());
