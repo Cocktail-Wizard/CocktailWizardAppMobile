@@ -125,7 +125,7 @@ public class Galerie extends AppCompatActivity implements BottomNavigationView.O
                 startActivity(new Intent(Galerie.this, Connexion.class));
                 return  true;
             }
-            //startActivity(new Intent(Galerie.this, MonBar.class));
+            startActivity(new Intent(Galerie.this, MonBar.class));
             return true;
         }
         return false;
