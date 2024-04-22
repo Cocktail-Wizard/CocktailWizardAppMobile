@@ -47,7 +47,7 @@ public class PublicationAdapter extends RecyclerView.Adapter<PublicationAdapter.
         }
 
         holder.titreTextView.setText(pub.getNom());
-        holder.nbLikesTextView.setText(Integer.toString(pub.getNb_like()));
+        holder.nbLikesTextView.setText(Integer.toString(pub.getNb_like())+"❤️");
 
         //Ajouter image a l'affichage
         Picasso.get().load(pub.getImg_cocktail()).resize(500, 0).into(holder.imgCocktail);
