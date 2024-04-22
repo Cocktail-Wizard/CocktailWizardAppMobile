@@ -14,11 +14,21 @@ import android.widget.Toast;
 
 import com.example.cocktailwizardapp.R;
 import com.example.cocktailwizardapp.classes.ApiCommunication;
+import com.squareup.picasso.Picasso;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
 
 public class MonProfil extends AppCompatActivity implements View.OnClickListener {
 
     Button btnModMdp, btnDeco, btnSuppCompt;
-    ImageView retour;
+    ImageView retour,imgProfil;
 
     TextView nomUtilTV;
 
@@ -41,20 +51,50 @@ public class MonProfil extends AppCompatActivity implements View.OnClickListener
 
         nomUtilTV = findViewById(R.id.nomUtilProfil_id);
 
+        imgProfil = findViewById(R.id.imageViewProfil_id);
+
         SharedPreferences sharedPreferences = getSharedPreferences("infoUtilisateur",MODE_PRIVATE);
         String nomUtilisateur = "@"+sharedPreferences.getString("nom", null);
-
+        String nom = sharedPreferences.getString("nom", null);
         nomUtilTV.setText(nomUtilisateur);
 
         retour = findViewById(R.id.retourMP_id);
         retour.setOnClickListener(this);
+
+        ApiCommunication apiCommunication = new ApiCommunication();
+        apiCommunication.getInfoUtilisateur(nom, new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful() && response.body() != null) {
+                    String responseBody = response.body().string();
+
+                    try {
+                        JSONObject jsonObject = new JSONObject(responseBody);
+                        final String imageUrl = "https://equipe105.tch099.ovh/images?image="+jsonObject.getString("img_profil");
+
+                        runOnUiThread(() -> {
+                            ImageView imageProfil = findViewById(R.id.imageViewProfil_id);
+                            Picasso.get().load(imageUrl).resize(500,500).into(imageProfil);
+                        });
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        runOnUiThread(() -> Toast.makeText(MonProfil.this, "Erreur: " + e.getMessage(), Toast.LENGTH_SHORT).show());
+                    }
+                } else {
+                    runOnUiThread(() -> Toast.makeText(MonProfil.this, "Erreur inconnue. Essayer à nouveau.", Toast.LENGTH_SHORT).show());
+                }
+            }
+        });
     }
 
     @Override
     public void onClick(View v) {
 
-        //TODO
-        // implementer les fonctions de boutons
         if(v == retour){
             finish();
         } if (v == btnModMdp) {
