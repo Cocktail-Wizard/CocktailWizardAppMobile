@@ -22,13 +22,13 @@
         android:id="@+id/nomCocktailFiche_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="40dp"
         android:text="TextView"
         android:textAlignment="center"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.527"
+        app:layout_constraintHorizontal_bias="0.545"
         app:layout_constraintStart_toStartOf="@+id/guideline10"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -49,6 +49,7 @@
         android:id="@+id/ingredientsFicheSV_id"
         android:layout_width="188dp"
         android:layout_height="96dp"
+        android:background="@drawable/rectangle_arrondi_blanc"
         app:layout_constraintBottom_toTopOf="@+id/guideline9"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guideline10"
@@ -89,7 +90,7 @@
         android:layout_height="28dp"
         android:text="Description"
         android:textAlignment="viewStart"
-        android:textSize="20sp"
+        android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/guideline7"
         app:layout_constraintEnd_toStartOf="@+id/guideline10"
@@ -101,8 +102,9 @@
     <ScrollView
         android:id="@+id/descFicheSV_id"
         android:layout_width="391dp"
-        android:layout_height="118dp"
+        android:layout_height="100dp"
         android:layout_marginTop="4dp"
+        android:background="@drawable/rectangle_arrondi_blanc"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.372"
         app:layout_constraintStart_toStartOf="parent"
@@ -112,7 +114,9 @@
             android:id="@+id/descFiche_id"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="TextView" />
+            android:layout_marginLeft="10sp"
+            android:text="TextView"
+            android:textSize="20sp" />
     </ScrollView>
 
     <androidx.constraintlayout.widget.Guideline
@@ -120,14 +124,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="86dp" />
+        app:layout_constraintGuide_begin="106dp" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline7"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="228dp" />
+        app:layout_constraintGuide_begin="273dp" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline8"
@@ -141,7 +145,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="186dp" />
+        app:layout_constraintGuide_begin="213dp" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline10"
@@ -162,7 +166,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="373dp" />
+        app:layout_constraintGuide_begin="396dp" />
 
     <TextView
         android:id="@+id/titrePrepFiche_id"
@@ -171,7 +175,7 @@
         android:layout_marginTop="4dp"
         android:text="Preparation"
         android:textAlignment="textStart"
-        android:textSize="20sp"
+        android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@+id/guideline10"
         app:layout_constraintHorizontal_bias="0.188"
@@ -181,7 +185,8 @@
     <ScrollView
         android:id="@+id/prepFicheSV_id"
         android:layout_width="391dp"
-        android:layout_height="118dp"
+        android:layout_height="100dp"
+        android:background="@drawable/rectangle_arrondi_blanc"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.372"
@@ -193,7 +198,9 @@
             android:id="@+id/prepFiche_id"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="TextView" />
+            android:layout_marginLeft="10sp"
+            android:text="TextView"
+            android:textSize="20sp" />
     </ScrollView>
 
     <androidx.constraintlayout.widget.Guideline
@@ -231,5 +238,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </ScrollView>
+
+    <ImageView
+        android:id="@+id/imageViewX_id"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_close_red" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

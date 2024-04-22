@@ -50,6 +50,7 @@ public class PublicationFragment extends DialogFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fiche_cocktail, container, false);
         ImageView imgCocktail = view.findViewById(R.id.imgCocktailFiche_id);
+        ImageView X = view.findViewById(R.id.imageViewX_id);
         TextView nomCocktail = view.findViewById(R.id.nomCocktailFiche_id);
         TextView ingredients = view.findViewById(R.id.ingredientFiche_id);
         TextView ingredientsScroll = view.findViewById(R.id.listeIngredientsFiche_id);
@@ -63,6 +64,13 @@ public class PublicationFragment extends DialogFragment {
 
         System.out.println("Dedans onCreateView");
 
+
+        X.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dismiss();
+            }
+        });
 
         if (getArguments() != null) {
             publication = getArguments().getParcelable("Publication");
