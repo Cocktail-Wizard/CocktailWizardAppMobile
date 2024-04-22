@@ -11,8 +11,8 @@ import okhttp3.Response;
 
 public class ConnexionController {
     public String url= "https://reqres.in/api/users/2";
-    public String url2 = "https://cocktailwizard.azurewebsites.net/api/cocktails/tri/like";
-    public String url3 = "https://cocktailwizard.azurewebsites.net/api/cocktails/%s/commentaires";
+    public String url2 = "https://cocktailwizard.azurewebsites.net/api/cocktails?tri=like&page=1-2";
+    public String url3 = "https://cocktailwizard.azurewebsites.net/api/cocktails/commentaires?cocktail=%s";
 
     public JSONController jc;
 
