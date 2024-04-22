@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -110,24 +111,26 @@ public class Inscription extends AppCompatActivity implements View.OnClickListen
 
                             // Traiter la réponse de l'API (UTF_8 car la réponse contient un accent)
                             String responseBody = response.body().source().readString(StandardCharsets.UTF_8);
-
+                            responseBody = responseBody.replace("\\u00e9", "é");
                             // Si réponse Inscription réussie!
-                            if (responseBody.equals("\"Inscription r\u00e9ussie!\"")) {
+                            if (responseBody.equals("\"Inscription réussie!\"")) {
                                 runOnUiThread(() -> {
                                     Toast.makeText(Inscription.this, "Inscription réussi", Toast.LENGTH_SHORT).show();
                                     // Retour a la page de connexion
                                     finish();
                                 });
                             } else {
-                                // Extraire le array d'erreur du JSONArray envoyer par l'API
-                                JSONArray erreurs = new JSONArray(responseBody);
+                                runOnUiThread(() -> Toast.makeText(Inscription.this, "Erreur inconnue! Essayez à nouveau.", Toast.LENGTH_SHORT).show());
 
-                                // Extraire le message d'erreur du JSONArray
-                                String messageErreur = erreurs.getString(0);
-                                runOnUiThread(() -> Toast.makeText(Inscription.this, messageErreur, Toast.LENGTH_SHORT).show());
                             }
                         } else {
-                            runOnUiThread(() -> Toast.makeText(Inscription.this, "Erreur inconnue! Essayez à nouveau.", Toast.LENGTH_SHORT).show());
+                            // Extraire le array d'erreur du JSONArray envoyer par l'API
+                            String responseBody = response.body().string();
+                            JSONArray erreurs = new JSONArray(responseBody);
+
+                            // Extraire le message d'erreur du JSONArray
+                            String messageErreur = erreurs.getString(0);
+                            runOnUiThread(() -> Toast.makeText(Inscription.this, messageErreur, Toast.LENGTH_SHORT).show());
                         }
                     } catch (IOException | JSONException e) {
                         runOnUiThread(() -> Toast.makeText(Inscription.this, "Erreur : "+e.getMessage(), Toast.LENGTH_SHORT).show());
