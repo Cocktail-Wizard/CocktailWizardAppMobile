@@ -216,7 +216,7 @@
         android:layout_height="30dp"
         android:text="Commentaire"
         android:textAlignment="textStart"
-        android:textSize="20sp"
+        android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@+id/guideline10"
         app:layout_constraintHorizontal_bias="0.258"
