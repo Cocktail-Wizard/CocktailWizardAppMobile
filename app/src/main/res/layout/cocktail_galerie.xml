@@ -26,6 +26,7 @@
         android:background="@color/cocktail_nom_galerie"
         android:text="TextView"
         android:textAlignment="center"
+        android:textColor="@color/black"
         android:textSize="34sp"
         app:layout_constraintBottom_toBottomOf="@+id/imgCocktailGalerie_id"
         app:layout_constraintEnd_toEndOf="parent"

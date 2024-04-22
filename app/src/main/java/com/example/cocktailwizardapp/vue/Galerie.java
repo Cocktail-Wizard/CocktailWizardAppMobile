@@ -55,11 +55,6 @@ public class Galerie extends AppCompatActivity implements BottomNavigationView.O
                 new PublicationAdapter.OnItemClickListener() {
                     @Override
                     public void onItemClick(Publication item) {
-                        Toast.makeText(getApplicationContext(),
-                                "Item Clicked: " + item.getNom(),
-                                Toast.LENGTH_LONG).show();
-
-
                         PublicationFragment publicationFragment = PublicationFragment.newInstance(item);
                         publicationFragment.show(getSupportFragmentManager(), "PublicationFragment");
 
@@ -130,7 +125,7 @@ public class Galerie extends AppCompatActivity implements BottomNavigationView.O
                 startActivity(new Intent(Galerie.this, Connexion.class));
                 return  true;
             }
-            //startActivity(new Intent(Galerie.this, MonBar.class));
+            startActivity(new Intent(Galerie.this, MonBar.class));
             return true;
         }
         return false;

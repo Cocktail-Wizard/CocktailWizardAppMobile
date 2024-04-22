@@ -50,6 +50,7 @@ public class PublicationFragment extends DialogFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fiche_cocktail, container, false);
         ImageView imgCocktail = view.findViewById(R.id.imgCocktailFiche_id);
+        ImageView X = view.findViewById(R.id.imageViewX_id);
         TextView nomCocktail = view.findViewById(R.id.nomCocktailFiche_id);
         TextView ingredients = view.findViewById(R.id.ingredientFiche_id);
         TextView ingredientsScroll = view.findViewById(R.id.listeIngredientsFiche_id);
@@ -64,6 +65,13 @@ public class PublicationFragment extends DialogFragment {
         System.out.println("Dedans onCreateView");
 
 
+        X.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dismiss();
+            }
+        });
+
         if (getArguments() != null) {
             publication = getArguments().getParcelable("Publication");
             System.out.println(publication.toString());
@@ -75,12 +83,15 @@ public class PublicationFragment extends DialogFragment {
                 // Assigner les valeurs texte pour les champs a partir de la Publication
                 nomCocktail.setText(publication.getNom());
                 ingredients.setText("Ingredients: ");
-                ingredientsScroll.setText(publication.getIngredients().toString());
-                nbAime.setText(Integer.toString(publication.getNb_like()));
-                nomAuteur.setText(publication.getAuteur());
-                titreDesc.setText("Titre Description: ");
+
+                String ingredientsString = "";
+                for(Ingredient i : publication.getIngredients()){
+                    ingredientsString += i.toString() + "\n";
+                }
+                ingredientsScroll.setText(ingredientsString);
+                nbAime.setText(Integer.toString(publication.getNb_like())+"❤️");
+                nomAuteur.setText("@"+publication.getAuteur());
                 description.setText(publication.getDesc());
-                titrePreparation.setText("Titre Preparation: ");
                 preparation.setText(publication.getPreparation());
 
 

@@ -10,11 +10,7 @@ public class Ingredient implements Parcelable {
 
     @Override
     public String toString() {
-        return "Ingredient{" +
-                "quantite=" + quantite +
-                ", unite='" + unite + '\'' +
-                ", ingredient='" + ingredient + '\'' +
-                '}';
+        return "- " + ingredient + " " + quantite + " " + unite;
     }
 
     public double getQuantite() {
