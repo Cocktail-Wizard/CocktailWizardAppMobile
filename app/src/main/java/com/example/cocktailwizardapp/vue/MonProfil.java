@@ -56,13 +56,14 @@ public class MonProfil extends AppCompatActivity implements View.OnClickListener
         SharedPreferences sharedPreferences = getSharedPreferences("infoUtilisateur",MODE_PRIVATE);
         String nomUtilisateur = "@"+sharedPreferences.getString("nom", null);
         String nom = sharedPreferences.getString("nom", null);
+        String token = sharedPreferences.getString("token",null);
         nomUtilTV.setText(nomUtilisateur);
 
         retour = findViewById(R.id.retourMP_id);
         retour.setOnClickListener(this);
 
         ApiCommunication apiCommunication = new ApiCommunication();
-        apiCommunication.getInfoUtilisateur(nom, new Callback() {
+        apiCommunication.getInfoUtilisateur(nom, token,new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 e.printStackTrace();
@@ -146,8 +147,9 @@ public class MonProfil extends AppCompatActivity implements View.OnClickListener
                 public void onClick(View v) {
                     SharedPreferences sharedPreferences = getSharedPreferences("infoUtilisateur",MODE_PRIVATE);
                     String nom = sharedPreferences.getString("nom",null);
+                    String token = sharedPreferences.getString("token",null);
                     ApiCommunication apiCommunication = new ApiCommunication();
-                    apiCommunication.supprimerProfil(nom, new ApiCommunication.ApiCallback() {
+                    apiCommunication.supprimerProfil(nom, token, new ApiCommunication.ApiCallback() {
                         @Override
                         public void onApiSuccess() {
                             runOnUiThread(new Runnable() {

@@ -35,7 +35,7 @@ public class ApiCommunication {
      * @param username
      * @param callback
      */
-    public void ajouterIngredients(String nomIngredient, String username, ApiCallback callback) {
+    public void ajouterIngredients(String nomIngredient, String username, String token, ApiCallback callback) {
 
         MediaType JSON = MediaType.parse("application/json; charset=utf-8");
         JSONObject json = new JSONObject();
@@ -50,6 +50,7 @@ public class ApiCommunication {
         Request request = new Request.Builder()
                 .url(API_URL+"/users/ingredients")
                 .post(body)
+                .addHeader("AUTH",token)
                 .build();
 
         client.newCall(request).enqueue(new Callback() {
@@ -77,7 +78,7 @@ public class ApiCommunication {
      * @param username
      * @param callback
      */
-    public void supprimerProfil(String username, final ApiCallback callback) {
+    public void supprimerProfil(String username, String token, final ApiCallback callback) {
         MediaType JSON = MediaType.parse("application/json; charset=utf-8");
         JSONObject json = new JSONObject();
         try {
@@ -89,6 +90,7 @@ public class ApiCommunication {
         RequestBody body = RequestBody.create(JSON, json.toString());
         Request request = new Request.Builder()
                 .url(API_URL + "/users")
+                .addHeader("AUTH", token)
                 .delete(body)
                 .build();
 
@@ -117,11 +119,12 @@ public class ApiCommunication {
      * @param nom
      * @param callback
      */
-    public void getInfoUtilisateur(String nom, Callback callback) {
+    public void getInfoUtilisateur(String nom, String token, Callback callback) {
         String url = API_URL + "/users?user=" + nom;
 
         Request request = new Request.Builder()
                 .url(url)
+                .addHeader("AUTH",token)
                 .build();
 
         client.newCall(request).enqueue(callback);

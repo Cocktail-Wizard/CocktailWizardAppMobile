@@ -87,14 +87,14 @@ public class Connexion extends AppCompatActivity implements View.OnClickListener
 
                             // Vérifier si le boolean success = true
                             if (jsonResponse.getBoolean("success")) {
+                                String token = jsonResponse.getString("token");
                                 runOnUiThread(() -> {
                                     Toast.makeText(Connexion.this, "Connexion réussi", Toast.LENGTH_SHORT).show();
 
                                     // Garder les infos du comptes
                                     SharedPreferences.Editor infoUtilEdit = sharedPreferences.edit();
                                     infoUtilEdit.putString("nom", inputNomCon.getText().toString());
-                                    //Je ne crois pas qu'on a besoin de garder le mot de passe en memoire
-                                    //infoUtilEdit.putString("mdp", inputMdpCon.getText().toString());
+                                    infoUtilEdit.putString("token",token);
                                     infoUtilEdit.apply();
 
                                     // Retour à la galerie

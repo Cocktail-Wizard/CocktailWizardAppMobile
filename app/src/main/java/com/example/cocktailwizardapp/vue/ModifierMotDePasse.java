@@ -30,7 +30,7 @@ public class ModifierMotDePasse extends AppCompatActivity implements View.OnClic
     EditText inputMdpActuel, inputMdpNouveau, inputMdpConf;
     Button btnConf;
     SharedPreferences sharedPreferences;
-    private static final String API_URL = "https://cocktailwizard.azurewebsites.net/api";
+    private static final String API_URL = "https://cocktailwizard.azurewebsites.net";
     String nomUtilisateur;
 
     @Override
@@ -40,6 +40,7 @@ public class ModifierMotDePasse extends AppCompatActivity implements View.OnClic
 
         sharedPreferences = getSharedPreferences("infoUtilisateur",MODE_PRIVATE);
         nomUtilisateur = sharedPreferences.getString("nom", null);
+
         imgRetourProfil = findViewById(R.id.imgRetourProfil_id);
         imgRetourProfil.setOnClickListener(this);
         
@@ -80,15 +81,17 @@ public class ModifierMotDePasse extends AppCompatActivity implements View.OnClic
                         e.printStackTrace();
                     }
 
+                    String token = sharedPreferences.getString("token", null);
 
-                    // Créer la requete, Content-Type pour FormData
+                    // Créer la requete
                     RequestBody requestBody =  RequestBody.create(
                             MediaType.parse("application/json; charset=utf-8"),
                             jsonObject.toString()
                     );
 
                     Request request = new Request.Builder()
-                            .url(API_URL + "/users")
+                            .url(API_URL+"/api/users")
+                            .addHeader("Auth",token)
                             .patch(requestBody)
                             .build();
 

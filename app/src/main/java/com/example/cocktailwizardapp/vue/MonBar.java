@@ -65,6 +65,8 @@ public class MonBar extends AppCompatActivity implements View.OnClickListener{
 
             SharedPreferences sharedPreferences = getSharedPreferences("infoUtilisateur",MODE_PRIVATE);
             String nomUtilisateur = sharedPreferences.getString("nom", null);
+            String token = sharedPreferences.getString("token", null);
+
             new Thread(() -> {
                 OkHttpClient client = new OkHttpClient();
                 MediaType JSON = MediaType.parse("application/json; charset=utf-8");
@@ -78,6 +80,7 @@ public class MonBar extends AppCompatActivity implements View.OnClickListener{
                 RequestBody body = RequestBody.create(JSON, jsonObject.toString());
                 Request request = new Request.Builder()
                         .url(API_URL + "/users/ingredients")
+                        .addHeader("AUTH",token)
                         .delete(body)
                         .build();
 
@@ -167,7 +170,9 @@ public class MonBar extends AppCompatActivity implements View.OnClickListener{
                                             ApiCommunication apiCommunication = new ApiCommunication();
                                             SharedPreferences sharedPreferences = getSharedPreferences("infoUtilisateur",MODE_PRIVATE);
                                             String nomUtilisateur = sharedPreferences.getString("nom", null);
-                                            apiCommunication.ajouterIngredients(ingredient.getIngredient(), nomUtilisateur, new ApiCommunication.ApiCallback() {
+                                            String token = sharedPreferences.getString("token", null);
+
+                                            apiCommunication.ajouterIngredients(ingredient.getIngredient(), nomUtilisateur, token,new ApiCommunication.ApiCallback() {
                                                 @Override
                                                 public void onApiSuccess() {
                                                     runOnUiThread(() -> {
@@ -212,9 +217,11 @@ public class MonBar extends AppCompatActivity implements View.OnClickListener{
 
         SharedPreferences sharedPreferences = getSharedPreferences("infoUtilisateur",MODE_PRIVATE);
         String nomUtilisateur = sharedPreferences.getString("nom", null);
+        String token = sharedPreferences.getString("token", null);
 
         Request request = new Request.Builder()
                 .url(API_URL + "/ingredients?user=" + nomUtilisateur)
+                .addHeader("AUTH", token)
                 .build();
 
         client.newCall(request).enqueue(new Callback() {
