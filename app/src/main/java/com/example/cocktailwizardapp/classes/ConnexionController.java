@@ -45,6 +45,11 @@ public class ConnexionController {
         });
     }
 
+    /**
+     *
+     * @param callback
+     * @throws IOException
+     */
     public void envoyerRequeteCocktailTriLike(final ResponseCallback callback) throws IOException{
         OkHttpClient client = new OkHttpClient();
 
@@ -78,6 +83,12 @@ public class ConnexionController {
         });
     }
 
+    /**
+     *
+     * @param callback
+     * @param id_cocktail
+     * @throws IOException
+     */
     public void envoyerRequeteGetCommentairesCocktail(final ResponseCallbackComments callback, int id_cocktail) throws IOException{
         OkHttpClient client = new OkHttpClient();
 

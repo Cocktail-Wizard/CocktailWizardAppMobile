@@ -30,7 +30,6 @@ import java.util.ArrayList;
 public class Galerie extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
     BottomNavigationView barNav;
-    ScrollView scrollView;
     RecyclerView recyclerView;
 
 
@@ -40,7 +39,6 @@ public class Galerie extends AppCompatActivity implements BottomNavigationView.O
         setContentView(R.layout.activity_galerie);
 
 
-        scrollView = (ScrollView) findViewById(R.id.ScrollViewGalerie_id);
         barNav = findViewById(R.id.bottomNav_id);
 
         barNav.setOnNavigationItemSelectedListener(this);
@@ -113,7 +111,9 @@ public class Galerie extends AppCompatActivity implements BottomNavigationView.O
                 return true;
         }
         if(item.getItemId() == R.id.galerie_id) {
-            scrollView.smoothScrollTo(0,0);
+            if (recyclerView != null) {
+                recyclerView.scrollToPosition(0);
+            }
             return true;
         }
         if(item.getItemId() == R.id.monBar_id) {
