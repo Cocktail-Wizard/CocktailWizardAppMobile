@@ -27,6 +27,14 @@ public class ApiCommunication {
     }
 
 
+    /**
+     *
+     * Fonction qui permet d'ajouter des ingrédients dans le bar de l'utilisateur
+     *
+     * @param nomIngredient
+     * @param username
+     * @param callback
+     */
     public void ajouterIngredients(String nomIngredient, String username, ApiCallback callback) {
 
         MediaType JSON = MediaType.parse("application/json; charset=utf-8");
@@ -62,6 +70,13 @@ public class ApiCommunication {
         });
     }
 
+    /**
+     *
+     * Fonction qui permet de supprimer un compte
+     *
+     * @param username
+     * @param callback
+     */
     public void supprimerProfil(String username, final ApiCallback callback) {
         MediaType JSON = MediaType.parse("application/json; charset=utf-8");
         JSONObject json = new JSONObject();
@@ -95,6 +110,13 @@ public class ApiCommunication {
         });
     }
 
+    /**
+     *
+     * Fonction qui permet de chercher les informations d'un utilisateur
+     *
+     * @param nom
+     * @param callback
+     */
     public void getInfoUtilisateur(String nom, Callback callback) {
         String url = API_URL + "/users?user=" + nom;
 

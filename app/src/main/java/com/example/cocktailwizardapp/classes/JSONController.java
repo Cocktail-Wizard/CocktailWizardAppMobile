@@ -23,6 +23,12 @@ public class JSONController {
         return pub;
     }
 
+    /**
+     *
+     * @param jsonData
+     * @param pubs
+     * @return
+     */
     public ArrayList<Publication> creerPublications(String jsonData, ArrayList<Publication> pubs) {
         ObjectMapper objectMapper = new ObjectMapper();
         try {
@@ -33,6 +39,12 @@ public class JSONController {
         }
     }
 
+    /**
+     *
+     * @param jsonData
+     * @param comments
+     * @return
+     */
     public ArrayList<Commentaire> getCommentaires(String jsonData, ArrayList<Commentaire> comments){
         ObjectMapper objectMapper = new ObjectMapper();
         try {
