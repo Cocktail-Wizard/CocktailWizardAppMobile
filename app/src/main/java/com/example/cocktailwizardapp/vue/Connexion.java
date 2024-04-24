@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.example.cocktailwizardapp.R;
@@ -30,6 +31,7 @@ public class Connexion extends AppCompatActivity implements View.OnClickListener
     TextView lienVersInscription;
     EditText inputNomCon,inputMdpCon;
     Button btnConnexion;
+    ImageView retour;
     SharedPreferences sharedPreferences;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +46,9 @@ public class Connexion extends AppCompatActivity implements View.OnClickListener
 
         btnConnexion = findViewById(R.id.btnConnexion_id);
         btnConnexion.setOnClickListener(this);
+
+        retour = findViewById(R.id.retourConnexion_id);
+        retour.setOnClickListener(this);
 
         sharedPreferences = getSharedPreferences("infoUtilisateur", MODE_PRIVATE);
     }
@@ -114,6 +119,9 @@ public class Connexion extends AppCompatActivity implements View.OnClickListener
                     }
                 }
             }.start();
+        }
+        if (v == retour){
+            finish();
         }
     }
 }
