@@ -33,6 +33,7 @@ public class Inscription extends AppCompatActivity implements View.OnClickListen
     ImageView calendrier;
     TextView outputDate;
     EditText inputNomIns,inputCourIns,inputMdp,inputConfMdp;
+    ImageView retour;
     Button btnInscrire;
     @Override
     protected void onCreate(Bundle savedInstanceState)  {
@@ -51,6 +52,9 @@ public class Inscription extends AppCompatActivity implements View.OnClickListen
 
         btnInscrire = findViewById(R.id.btnInscrire_id);
         btnInscrire.setOnClickListener(this);
+
+        retour = findViewById(R.id.retourInscription_id);
+        retour.setOnClickListener(this);
 
     }
 
@@ -137,6 +141,9 @@ public class Inscription extends AppCompatActivity implements View.OnClickListen
                     }
                 }
             }.start();
+        }
+        if (v == retour){
+            finish();
         }
     }
 }

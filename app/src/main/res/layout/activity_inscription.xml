@@ -129,7 +129,7 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/LeftGuideLine"
         app:layout_constraintTop_toBottomOf="@+id/inputNomIns_id"
-        app:layout_constraintVertical_bias="0.047" />
+        app:layout_constraintVertical_bias="0.019" />
 
     <EditText
         android:id="@+id/inputConfMdpIns_id"
@@ -197,5 +197,13 @@
         app:layout_constraintTop_toBottomOf="@+id/outputDateIns_id"
         app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/ic_calendrier" />
+
+    <ImageView
+        android:id="@+id/retourInscription_id"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/baseline_arrow_back_24" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
